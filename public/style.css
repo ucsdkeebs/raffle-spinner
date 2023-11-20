@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+
+.Raffle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.RaffleBody {
+    display: flex;
+    flex-direction: column;
+}
+
+.Slot {
+    width:40vh;
+    height:12vh;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-family: Arial, sans-serif;
+}
+
+#slot1 {
+    border-bottom: 2px solid #333;
+    clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%);
+}
+
+#slot7 {
+    border-top: 2px solid #333;
+    clip-path: polygon(0 0, 0 50%, 100% 50%, 100% 0);
+}
