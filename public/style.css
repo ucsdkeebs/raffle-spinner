@@ -8,19 +8,19 @@ body {
     background-color: #f0f0f0;
   }
 
-.Raffle {
+.raffle {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.RaffleBody {
+.raffleBody {
     display: flex;
     flex-direction: column;
 }
 
-.Slot {
+.slot {
     width:40vh;
     height:12vh;
     border: 2px solid #333;
@@ -29,6 +29,18 @@ body {
     align-items: center;
     font-size: 2rem;
     font-family: Arial, sans-serif;
+}
+
+.triangle {
+    position: absolute;
+    top: 48%;
+    left: 60%;
+    transform: translate(-50%, -50%) rotate(270deg); /* Rotate the arrow */
+    width: 0;
+    height: 0;
+    border-left: 6vh solid transparent;
+    border-right: 6vh solid transparent;
+    border-bottom: 18vh solid #fbff00; /* Color of the arrow, match Slot background */
 }
 
 #slot1 {
