@@ -16,33 +16,42 @@ async function rollNames() {
 
     //include a spin animation and then do this manual spin so that it looks like wheel is slowing down
     for (let i = start; i <= start + spins; i++) {
+        let delay = 0.05;
+        if (i >= start + spins - 30) {
+            delay = (0.05 + (0.02 * (i - (start + spins - 30)) / 5));
+        }
         // roll down starting from the top
         await gsap.to(".slot", {
-            duration: 0.25, // Animation duration in seconds
-            y: "+=12vh", // Move each element down by 200 pixels
-            ease: "power4.out", // Easing function for a smoother animation
+            duration: delay, // Animation duration in seconds
+            y: "+=10vh", // Move each element down by one slot
+            ease: "power4.out", // Easing function 
             // after roll completed, resets the divs with new values, i.e. slot2 goes back with the value of the old slot3 so the roll is complete
             onComplete: () => {
                 for (let j = numSlots; j > 0; j--) {
                     var dynamicTextElement = document.getElementById("slot" + (numSlots + 1 - j));
                     if (dynamicTextElement) {
-                        // subtract 4 to get it into the center of the slots
+                        // subtract half of slots to get it into the center of the slots
                         dynamicTextElement.textContent = names[(i + j - 4) % names.length] ;
                     }
                 }
                 gsap.set(".slot", {
-                    y: "-=12vh"
+                    y: "-=10vh"
                 })
             }
-        });
-
-        // might rework this eventually, since this is pretty rough
-        if (i < start + spins - 30) {
-            await sleep(50);
-        } else {
-            await sleep(50 + (20 * (i - (start + spins - 30)) / 5));
-        }
+        });        
     }
+    
+    let dir = "+";
+    if (Math.random() * 2) {
+        dir = "-";
+    }
+
+    await gsap.to(".slot", {
+        duration: 1, // Animation duration in seconds
+        y: dir+"="+(Math.random() * 5)+"vh", // Move elements down by random variable so that arrow appears to be smoother
+        ease: "power4.out", // Easing function
+    });
+    
     alert (names[(start + spins) % names.length] + " has won!");
     
     // remove winner
