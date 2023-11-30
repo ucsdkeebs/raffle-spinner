@@ -13,6 +13,10 @@ async function rollNames() {
     var spins = Math.floor(Math.random() * names.length) + minRoll; // the number of times to spin the wheel      
 
     // to implement a slot machine wheel, the lowest value has to be the first index, and we need a buffer of length//2 to get the value in the middle
+    // need to think about storing a variable in order to reset the placement of the 
+    await gsap.set(".slot", {
+        top: "50vh", // Move elements down by random variable so that arrow appears to be smoother
+    });
 
     //include a spin animation and then do this manual spin so that it looks like wheel is slowing down
     for (let i = start; i <= start + spins; i++) {
@@ -40,17 +44,15 @@ async function rollNames() {
             }
         });        
     }
-    
-    let dir = "+";
-    if (Math.random() * 2) {
-        dir = "-";
-    }
 
+    // move this to be outside the for loop -1 so that it looks smoother transition
+    /* looks extremely bad rn, should be implemented inside of the main loop, so that it looks more complete, need to alter clip paths as well for this to look right.
     await gsap.to(".slot", {
         duration: 1, // Animation duration in seconds
-        y: dir+"="+(Math.random() * 5)+"vh", // Move elements down by random variable so that arrow appears to be smoother
+        y: "+="+(Math.random() * 6)+"vh", // Move elements down by random variable so that arrow appears to be smoother
         ease: "power4.out", // Easing function
-    });
+    });*/
+    await sleep(50);
     
     alert (names[(start + spins) % names.length] + " has won!");
     
