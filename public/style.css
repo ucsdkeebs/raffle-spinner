@@ -33,7 +33,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: Arial, sans-serif;
 }
 
@@ -56,7 +56,7 @@ body {
 }
 
 #top {
-    margin-bottom: -5vh;
+    margin-bottom: -15vh;
     z-index: 10;
 }
 
@@ -65,16 +65,14 @@ body {
     z-index: 10;
 }
 
-#slot1 {
-    border-bottom: 2px solid #333;
+#slot0 {
     clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%);
 }
 
 #slot7 {
-    border-top: 2px solid #333;
     clip-path: polygon(0 0, 0 50%, 100% 50%, 100% 0);
 }
 
 .LowerRaffle {
-    margin-top: 6vh;
+    margin-top: 4vh;
 }
