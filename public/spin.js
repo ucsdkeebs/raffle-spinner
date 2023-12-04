@@ -1,6 +1,6 @@
 let names = [];
 let slots = [];
-const numSlots = 8;
+const numSlots = 10;
 const minRoll = 40;
 
 //adds delay to functions
@@ -11,7 +11,7 @@ function sleep(ms) {
 // function to spin the wheel
 async function rollNames() {
     var start = Math.floor(Math.random() * names.length); // picks a random index to start the spin
-    var spins = Math.floor(Math.random() * names.length) + minRoll; // the number of times to spin the wheel, with built in spin so that it always looks like it spins  
+    var spins = Math.floor(Math.random() * names.length) + minRoll; // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
     
     // iterates for the number of spins
     for (let i = start; i <= start + spins; i++) {

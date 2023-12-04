@@ -27,8 +27,8 @@ body {
 }
 
 .slot {
-    width:40vh;
-    height:10vh;
+    width:20vw;
+    height:8vh;
     border: 2px solid #333;
     display: flex;
     justify-content: center;
@@ -39,29 +39,29 @@ body {
 
 .triangle {
     position: absolute;
-    top: 45vh;
-    left: 60%;
+    top: 48vh;
+    left: 62%;
     transform: translate(-50%, -50%) rotate(270deg); /* Rotate the arrow */
     width: 0;
     height: 0;
-    border-left: 6vh solid transparent;
-    border-right: 6vh solid transparent;
-    border-bottom: 18vh solid #fbff00; /* Color of the arrow, match Slot background */
+    border-left: 4vh solid transparent;
+    border-right: 4vh solid transparent;
+    border-bottom: 12vh solid #fbff00; /* Color of the arrow, match Slot background */
 }
 
 .edge {
-    width: 42vh;
+    width: 21vw;
     height: 10vh;
     background-color: gray;
 }
 
 #top {
-    margin-bottom: -15vh;
+    margin-bottom: -12vh;
     z-index: 10;
 }
 
 #bottom {
-    margin-top: -5vh;
+    margin-top: -4vh;
     z-index: 10;
 }
 
@@ -69,7 +69,7 @@ body {
     clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%);
 }
 
-#slot7 {
+#slot9 {
     clip-path: polygon(0 0, 0 50%, 100% 50%, 100% 0);
 }
 
