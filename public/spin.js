@@ -1,7 +1,7 @@
 let names = [];
 let slots = [];
 const numSlots = 10;
-const minRoll = 40;
+const minRoll = 93;
 
 //adds delay to functions
 function sleep(ms) {
@@ -11,7 +11,7 @@ function sleep(ms) {
 // function to spin the wheel
 async function rollNames() {
     var start = Math.floor(Math.random() * names.length); // picks a random index to start the spin
-    var spins = Math.floor(Math.random() * names.length) + minRoll; // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
+    var spins = Math.floor(Math.random() * 20) + minRoll; // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
     
     // iterates for the number of spins
     for (let i = start; i <= start + spins; i++) {
@@ -23,7 +23,7 @@ async function rollNames() {
         // 
         await gsap.to(".slot", { // animates a slide downward
             duration: delay, // Animation duration in seconds
-            y: "+=10vh", // Move each element down by one slot
+            y: "+=8vh", // Move each element down by one slot
             ease: "power4.out", // Easing function 
             // after roll completed, resets the divs with new values, i.e. slot2 goes back to its original place, but with the value of the old slot3 so the roll is complete
             onComplete: () => {
@@ -35,7 +35,7 @@ async function rollNames() {
                     }
                 }
                 gsap.set(".slot", { //set resets the slots to their original place
-                    y: "-=10vh"
+                    y: "-=8vh"
                 })
             }
         });        
