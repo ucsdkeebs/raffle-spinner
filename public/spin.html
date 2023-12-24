@@ -8,7 +8,9 @@
     <script src="https://unpkg.com/gsap@3.9.1"></script>
 </head>
 <body>
+    <!-- Slot Machine -->
     <div class="raffle">
+        <!-- Slots -->
         <div class="raffleBody">
             <div id="top" class="edge"></div>
             <div id="slot0" class="slot">...</div>
@@ -24,10 +26,22 @@
             <div id="bottom" class="edge"></div>
             <div class="triangle"></div>
         </div>
+        <!-- Spin Button-->
         <div class="LowerRaffle">
-            <button onclick="rollNames()">Roll</button>
+            <button id="roll" onclick="rollNames()">Spin</button>
         </div>
         <script src="spin.js"></script>
+    </div>
+
+    <!-- Popup Box -->
+    <div id="winScreen" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span> <!-- &times; creates a multiplication x to close modal-->
+          <p id="modal-text">Some text in the Modal..</p>
+          <button id="removeWinner">Remove Winner</button>
+          <button id="removeAll">Clear List</button>
+          <button id="spin" onclick="rollNames()">Spin Again</button>
+        </div>  
     </div>
 </body>
 </html>

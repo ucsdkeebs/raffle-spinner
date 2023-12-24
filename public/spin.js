@@ -1,7 +1,6 @@
 let names = [];
-let slots = [];
 const numSlots = 10;
-const minRoll = 93;
+const minRoll = 73; //minimum to have the roll speed be 5.5 seconds
 
 //adds delay to functions
 function sleep(ms) {
@@ -10,6 +9,7 @@ function sleep(ms) {
 
 // function to spin the wheel
 async function rollNames() {
+    closeModal();
     var start = Math.floor(Math.random() * names.length); // picks a random index to start the spin
     var spins = Math.floor(Math.random() * 20) + minRoll; // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
     
@@ -18,7 +18,7 @@ async function rollNames() {
         let delay = 0.05;
         // checks if there is less than 30 spins left, then starts to slow down the spin
         if (i >= start + spins - 30) {
-            delay = (0.05 + (0.02 * (i - (start + spins - 30)) / 5)); //every 5 spins, slow down by 20 ms
+            delay = (0.05 + (0.02 * (i - (start + spins - 30)) / 5)); //slows down the spin by 0.004 seconds.
         }
         // 
         await gsap.to(".slot", { // animates a slide downward
@@ -44,10 +44,23 @@ async function rollNames() {
     await sleep(50); // delay to make the animation smoother
     
     let winIndex = (start + spins) % names.length; //gets the winning index to be displayed/removed
-    alert (names[winIndex] + " has won!");
+    //alert (names[winIndex] + " has won!");
+    openModal(names[winIndex]);
     
-    // remove winner
-    names.splice(winIndex, 1);
+    // sets button to remove winner
+    //consider on resetting the display so that the wheel doesnt show the winner anymore
+    var removeWinButton = document.getElementById("removeWinner");
+    removeWinButton.onclick = function() {
+        names.splice(winIndex, 1);
+        closeModal();
+    };
+
+    // sets button to empty list
+    var removeAllButton = document.getElementById("removeAll");
+    removeAllButton.onclick = function() {
+        names = new Array();
+        closeModal();
+    };
 }
 
 // default start
@@ -60,11 +73,22 @@ async function startState() {
         if (dynamicTextElement) {
             var dynamicText = i;
             dynamicTextElement.textContent = dynamicText;
-            slots.push(dynamicTextElement);
         }
         console.log(i);
         await sleep(25);
     }
+}
+
+async function closeModal() {
+    var modal = document.getElementById("winScreen");
+    modal.style.display = "none";
+}
+
+function openModal(winningNumber) {
+    var modal = document.getElementById("winScreen");
+    var dynamicTextElement = document.getElementById("modal-text");
+    dynamicTextElement.textContent = winningNumber + " has won!"
+    modal.style.display = "block";
 }
 
 window.onload = startState;
