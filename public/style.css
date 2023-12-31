@@ -58,6 +58,12 @@ body {
     background-color: gray;
 }
 
+#refreshForm {
+    position: absolute;
+    top: 45vh;
+    right: 62%;
+}
+
 #top {
     margin-bottom: -12vh;
     z-index: 1;
