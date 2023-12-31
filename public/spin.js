@@ -63,7 +63,7 @@ async function rollNames() {
 // generate
 async function startState() {
     // fills array on start
-    names = Array.from(Array(100).keys(), n => n + 1);
+    names = Array.from(Array(200).keys(), n => n + 1);
 
     for (let i = 1; i <= numSlots; i++) {
         var dynamicTextElement = document.getElementById("slot" + i)
@@ -78,3 +78,5 @@ async function startState() {
 }
 
 window.onload = startState;
+
+// this will be for the input

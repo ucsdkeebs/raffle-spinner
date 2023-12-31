@@ -1,3 +1,10 @@
+/*
+Color Pallette
+    Light Tan: #f8f6d7
+    Dark Tan: #fdd086
+    Light Blue: #9ADBE8
+
+*/
 html {
     overflow-y: scroll;
 }
@@ -9,7 +16,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-color: #f8f6d7;
 }
 
 .raffle {
@@ -29,30 +36,28 @@ body {
 .slot {
     width:40vh;
     height:10vh;
-    border: 2px solid #333;
+    border: 2px solid #091f2c;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
     font-family: Arial, sans-serif;
+    color: #091f2c;
+    background-color: #fdd086;
 }
 
 .triangle {
     position: absolute;
-    top: 45vh;
-    left: 60%;
-    transform: translate(-50%, -50%) rotate(270deg); /* Rotate the arrow */
-    width: 0;
-    height: 0;
-    border-left: 6vh solid transparent;
-    border-right: 6vh solid transparent;
-    border-bottom: 18vh solid #fbff00; /* Color of the arrow, match Slot background */
+    top: 47.5%;
+    left:62.5%;
+    transform: translate(-50%, -70%) rotate(90deg); /*Rotate the arrow*/
 }
 
 .edge {
     width: 42vh;
     height: 10vh;
     background-color: gray;
+    
 }
 
 #top {
@@ -76,5 +81,31 @@ body {
 }
 
 .LowerRaffle {
-    margin-top: 6vh;
+    margin-top: 10vh;
 }
+
+/* these are for the assets*/
+#arrow {
+    height: 10vh;
+    width: auto;
+}
+#top-bottom {
+    width: 42vh;
+    height: 10vh;
+    border:3px solid black;
+}
+
+/* .raffleRight{
+    transform: translate(150%, 150%);
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: center;
+}
+#mascot {
+    /* top: 10%;
+    right: 10%; */
+    /* height: 20vh;
+    width: auto; */
+    /* transform: translate(70%, -15%) */
+/* } */ 
