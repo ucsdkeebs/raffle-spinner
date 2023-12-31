@@ -7,5 +7,5 @@ Based on the limitations on the whole wheel, we decided to go for a vertical whe
 
 Right now, it is coded in vanilla JS, but we will convert it to React soon.
 
-***Current Progress***: Basic Functionalities are done, works for sample names and numbers
+***Current Progress***: Basic Functionalities are done, works for sample numbers
 ***TODO***: Make it look prettier LOL
