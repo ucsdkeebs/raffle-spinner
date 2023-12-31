@@ -66,12 +66,15 @@ async function rollNames() {
 // default start
 async function startState() {
     // fills array on start
-    names = Array.from(Array(100).keys(), n => n + 1);
+    names = Array.from(Array(1000).keys(), n => n + 1);
+    // shuffles the numbers in an array
+    shuffle(names);
 
     for (let i = 0; i < numSlots; i++) {
         var dynamicTextElement = document.getElementById("slot" + i);
         if (dynamicTextElement) {
-            var dynamicText = i;
+            // randomizes where to put the names on the wheel
+            var dynamicText = names[Math.floor(Math.random()*names.length)];
             dynamicTextElement.textContent = dynamicText;
         }
         console.log(i);
@@ -79,11 +82,31 @@ async function startState() {
     }
 }
 
+// to shuffle our array on start
+function shuffle(array) {
+    let currentIndex = array.length
+    let randomIndex = 0;
+  
+    // while elements left to shuffle
+    while (currentIndex > 0) {
+  
+      // pick random element and swap with current element
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
+
+// closes pop up window
 async function closeModal() {
     var modal = document.getElementById("winScreen");
     modal.style.display = "none";
 }
 
+// opens pop up window with winner and options
 function openModal(winningNumber) {
     var modal = document.getElementById("winScreen");
     var dynamicTextElement = document.getElementById("modal-text");
