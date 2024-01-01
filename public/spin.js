@@ -10,6 +10,7 @@ function sleep(ms) {
 // function to spin the wheel
 async function rollNames() {
     closeModal();
+    document.getElementById("roll").disabled = true;
     var start = Math.floor(Math.random() * names.length); // picks a random index to start the spin
     var spins = Math.floor(Math.random() * 20) + minRoll; // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
     
@@ -75,6 +76,7 @@ async function rollNames() {
         }
         closeModal();
     };
+    document.getElementById("roll").disabled = false;
 }
 
 // default start
