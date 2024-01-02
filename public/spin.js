@@ -1,6 +1,6 @@
 let names = [];
 const numSlots = 10;
-const minRoll = 73; //minimum to have the roll speed be 5.5 seconds
+const minRoll = 73; //minimum to have the roll speed be 6.93 seconds
 
 //adds delay to functions
 function sleep(ms) {
@@ -9,17 +9,20 @@ function sleep(ms) {
 
 // function to spin the wheel
 async function rollNames() {
+    //disable button
+    var button = document.getElementById("roll");
+    button.onclick = null;
+
     closeModal();
-    document.getElementById("roll").disabled = true;
     var start = Math.floor(Math.random() * names.length); // picks a random index to start the spin
     var spins = Math.floor(Math.random() * 20) + minRoll; // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
     
     // iterates for the number of spins
     for (let i = start; i <= start + spins; i++) {
         let delay = 0.05;
-        // checks if there is less than 30 spins left, then starts to slow down the spin
-        if (i >= start + spins - 30) {
-            delay = (0.05 + (0.02 * (i - (start + spins - 30)) / 5)); //slows down the spin by 0.004 seconds.
+        // checks if there is less than 40 spins left, then starts to slow down the spin
+        if (i >= start + spins - 40) {
+            delay = (0.05 + (0.02 * (i - (start + spins - 40)) / 5)); //slows down the spin by 0.004 seconds.
         }
         // 
         await gsap.to(".slot", { // animates a slide downward
@@ -39,7 +42,7 @@ async function rollNames() {
                     y: "-=8vh"
                 })
             }
-        });        
+        });   
     }
 
     await sleep(50); // delay to make the animation smoother
@@ -76,7 +79,11 @@ async function rollNames() {
         }
         closeModal();
     };
-    document.getElementById("roll").disabled = false;
+
+    // resets the functionality of the button
+    button.onclick = function() {
+        rollNames();
+    };
 }
 
 // default start
