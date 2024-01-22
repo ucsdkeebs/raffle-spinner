@@ -1,10 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
-import { Button } from '@mui/material';
-import {state, useState} from 'react';
-import gsap from 'gsap';
+//import { Button } from '@mui/material';
+import {state, useState, useEffect} from 'react';
+import { useGSAP } from "@gsap/react";
 
 function App() {
+  // array to store raffle data
+  const [data, setData] = useState([]);
+  
+  const fetchData = () => {
+    // Replace with your backend server URL
+    const backendUrl = 'http://localhost:3001/api/get-google-sheet-data';
+
+    fetch(backendUrl)
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching data:', error));
+  };
+
   return (
     <div class="raffle">
         <div class="raffleBody">
@@ -24,7 +36,7 @@ function App() {
         </div>
 
         <div class="LowerRaffle">
-            <button id="roll" onclick="rollNames()">Spin</button>
+            <button id="roll" onclick={fetchData}>Spin</button>
         </div>
         
         <SelectOption/>
