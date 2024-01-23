@@ -1,14 +1,18 @@
 const express = require('express');
 const { google } = require('googleapis');
+const cors = require('cors');
 
 const app = express();
-const port = 3001;
+const PORT = process.env.PORT || 3001;
+
+app.use(cors());
 
 // Replace with your service account key file and spreadsheet ID
 const serviceAccount = require('./secrets.json');
 const spreadsheetID = '1GKyP_61jo1Btik3lX_qalejXb_0txDFv5dvhEJ20S24';
 
 app.get('/api/get-google-sheet-data', async (req, res) => {
+  console.log("api test!");
   try {
     const auth = new google.auth.JWT(
       serviceAccount.client_email,
@@ -22,7 +26,7 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
     // gets the last row of Attendees that has data
     const lastRow = sheets.data.sheets[0].data[0].rowData.length;
     // Specify the range you want to read
-    const range = `Attendees!B2:I${lastRow}`; // Update with your desired range
+    const range = `Attendees!D2:I${lastRow}`; // Update with your desired range
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetID,
@@ -38,6 +42,6 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
