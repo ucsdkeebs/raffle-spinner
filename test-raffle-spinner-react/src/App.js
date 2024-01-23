@@ -6,8 +6,10 @@ import { gsap } from 'gsap';
 
 function App() {
   // array to store raffle data
-  const [data, setData] = useState([]);
+  const [raffle, setRaffle] = useState([]);
   
+  const [slotValues, setSlotValues] = useState(['.','.','.','.','.','.','.','.','.',])
+
   const fetchData = () => {
     // Replace with your backend server URL
     console.log('fetch test!');
@@ -15,13 +17,17 @@ function App() {
 
     fetch(backendUrl)
       .then(response => response.json())
-      .then(data => setData(data))
+      .then(data => {
+        console.log(data);
+        setRaffle(data);
+        console.log(raffle)
+      })
       .catch(error => console.error('Error fetching data:', error));
   };
 
   const numbers = Array.from({ length: 10 }, (_, index) => index);
   const slotComponents = numbers.map(number => (
-    <Slot key={number} value="..." slotNumber={number} />
+    <Slot key={number} value={slotValues[number]} slotNumber={number} />
   ));
 
   return (
@@ -43,11 +49,40 @@ function App() {
         </div>
 
         <div className="LowerRaffle">
-            <button id="roll" onClick={() => {
-              console.log("test!")
-              rollNames(parseData(fetchData()), slotComponents)
+        <button id="roll" onClick={async() => {
+              const response = await fetchData();
+              console.log("test99999");
+              const parsedData = await parseData(raffle);
+              // picks a random index to start the spin
+              var start = Math.floor(Math.random() * parsedData.length); 
+              // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
+              var spins = Math.floor(Math.random() * 20) + 73; 
+              for (let i = start; i <= start + spins; i++) {
+                let delay = 0.05;
+                // checks if there is less than 40 spins left, then starts to slow down the spin
+                if (i >= start + spins - 40) {
+                    delay = (0.05 + (0.02 * (i - (start + spins - 40)) / 5)); //slows down the spin by 0.004 seconds.
+                }
+                  
+                await gsap.to(".slot", { // animates a slide downward
+                  duration: delay, // Animation duration in seconds
+                  y: "+=8vh", // Move each element down by one slot
+                  ease: "power4.out", // Easing function 
+                  // after roll completed, resets the divs with new values, i.e. slot2 goes back to its original place, but with the value of the old slot3 so the roll is complete
+                  onComplete: () => {
+                    const shiftedSlots = [];
+                    for (let j = slotValues.length; j > 0; j--) {
+                      console.log(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
+                      shiftedSlots.push(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
+                    }
+                    setSlotValues(shiftedSlots);
+                    gsap.set(".slot", { //set resets the slots to their original place
+                      y: "-=8vh"
+                    })
+                  }
+                });
               }
-            }>
+            }}>
               Spin
             </button>
         </div>
@@ -58,16 +93,13 @@ function App() {
   );
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function parseData(data) {
   // index 4 and 5 correspond to H and I which are boolean, 4 true 5 false
   // only want to keep E(1) and F(2) which is name and email
   // also want to add extra tickets G(3)
   const output = [];
   for (let i = 0; i < data.length; i++) {
+    if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE"))
     for (let j = 0; j < data[i][3] + 1; j++) {
       output.push([data[i][1], data[i][2]]);
     }
@@ -97,7 +129,8 @@ async function rollNames(data, slots){
       // after roll completed, resets the divs with new values, i.e. slot2 goes back to its original place, but with the value of the old slot3 so the roll is complete
       onComplete: () => {
         for (let j = slots.length; j > 0; j--) {
-          slots[slots.length - j].updateVal(data[(i + j - (slots.length / 2)) % data.length][0])
+          console.log(data[(i + j - (slots.length / 2)) % data.length][0]);
+          slots[slots.length - j].setVal(data[(i + j - (slots.length / 2)) % data.length][0])
         }
         gsap.set(".slot", { //set resets the slots to their original place
           y: "-=8vh"
@@ -110,10 +143,6 @@ async function rollNames(data, slots){
 function Slot({value, slotNumber}){
   const slotID = "slot"+ slotNumber;
   const [val, setVal] = useState(value);
-
-  const updateVal = (name) => {
-    setVal(name);
-  }
 
   return (
     <div id={slotID} className="slot">
