@@ -19,6 +19,9 @@ function App() {
   // the winner of the raffle
   const [winner, setWinner] = useState('');
 
+  //disale button of the raffle
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
   // index of the Winner sheet to be added to the list of winners
   const [currentWinIndex, setCurrentWinIndex] = useState(1);
 
@@ -94,7 +97,8 @@ function App() {
         </div>
 
         <div className="LowerRaffle">
-        <button id="roll" onClick={async() => {
+        <button id="roll" disabled = {isButtonDisabled} onClick={async() => {
+          setButtonDisabled(true);
           fetchData();
           console.log(raffle);
           // picks a random index to start the spin
@@ -133,10 +137,11 @@ function App() {
           setWinner(raffle[winIndex][0]);
 
           // delay to make the animation smoother
-          await sleep(50); 
+          await sleep(1000); 
     
           updateData(raffle[winIndex])
           openModal();
+          setButtonDisabled(false);
         }}>
               Spin
             </button>
