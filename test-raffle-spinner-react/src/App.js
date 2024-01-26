@@ -44,7 +44,7 @@ function App() {
       const response = await fetch(backendUrl);
       const data = await response.json();
       console.log(Array.isArray(data));
-      await setRaffle(data);    
+      await setRaffle(parseData(data));
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -53,6 +53,17 @@ function App() {
   // sets the state of raffle array
   useEffect(() => {
     console.log('Raffle state updated:', raffle);
+    let slots = raffle.slice(0,10);
+    let parseSlots = []
+    for (let i = 0; i < slots.length; i++)
+    {
+      if (slots[i].length > 1)
+      {
+        parseSlots.push(slots[i][0]);
+      }
+    }
+    console.log("CURRENT SLOTS: ", parseSlots);
+    setSlotValues(parseSlots);
   }, [raffle]);
 
   // calls fetch data command just to avoid errors at the start
@@ -82,9 +93,8 @@ function App() {
           setButtonDisabled(true);
           fetchData();
           console.log(raffle);
-          const parsedData = await parseData(raffle);
           // picks a random index to start the spin
-          var start = Math.floor(Math.random() * parsedData.length); 
+          var start = Math.floor(Math.random() * raffle.length); 
           // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
           var spins = Math.floor(Math.random() * 20) + 73; 
           for (let i = start; i <= start + spins; i++) {
@@ -103,7 +113,7 @@ function App() {
                 const shiftedSlots = [];
                 for (let j = slotValues.length; j > 0; j--) {
                   //console.log(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
-                  shiftedSlots.push(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
+                  shiftedSlots.push(raffle[(i + j - (slotValues.length / 2)) % raffle.length][0]);
                 }
                 setSlotValues(shiftedSlots);
                 gsap.set(".slot", { //set resets the slots to their original place
@@ -114,9 +124,9 @@ function App() {
           }
 
           // gets winning index and sets the winner to be the string at that index
-          let winIndex = (start + spins) % parsedData.length;
-          console.log(parsedData[winIndex]);
-          setWinner(parsedData[winIndex][0]);
+          let winIndex = (start + spins) % raffle.length;
+          console.log(raffle[winIndex]);
+          setWinner(raffle[winIndex][0]);
 
           // delay to make the animation smoother
           await sleep(1000); 
