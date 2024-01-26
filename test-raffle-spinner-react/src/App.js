@@ -19,6 +19,9 @@ function App() {
   // the winner of the raffle
   const [winner, setWinner] = useState('');
 
+  //disale button of the raffle
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
   // opens Modal on win by setting state to true
   const openModal = () => {
     setModalIsOpen(true);
@@ -75,7 +78,8 @@ function App() {
         </div>
 
         <div className="LowerRaffle">
-        <button id="roll" onClick={async() => {
+        <button id="roll" disabled = {isButtonDisabled} onClick={async() => {
+          setButtonDisabled(true);
           fetchData();
           console.log(raffle);
           const parsedData = await parseData(raffle);
@@ -115,9 +119,10 @@ function App() {
           setWinner(parsedData[winIndex][0]);
 
           // delay to make the animation smoother
-          await sleep(50); 
+          await sleep(1000); 
     
           openModal();
+          setButtonDisabled(false);
         }}>
               Spin
             </button>
