@@ -3,13 +3,36 @@ import './App.css';
 import {useState, useEffect} from 'react';
 import { useGSAP } from "@gsap/react";
 import { gsap } from 'gsap';
+import Triangle from './triangle.jsx';
+import Winscreen from './winscreen.jsx';
 
 function App() {
   // array to store raffle data
   const [raffle, setRaffle] = useState([]);
   
+  // the values that are displayed on the slot
   const [slotValues, setSlotValues] = useState(['.','.','.','.','.','.','.','.','.','.'])
 
+  // whether or not the modal should be opened
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  // the winner of the raffle
+  const [winner, setWinner] = useState('');
+
+  // opens Modal on win by setting state to true
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  // closes Modal after clicking on x or outside of modal
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  /**
+   * Calls to GoogleSheets API to retrieve list of valid people to enter raffle
+   * sets the raffle array to this list retrieved
+   */
   const fetchData = async () => {
     console.log('fetch test!');
     const backendUrl = 'http://localhost:3001/api/get-google-sheet-data';
@@ -24,14 +47,17 @@ function App() {
     }
   };
 
+  // sets the state of raffle array
   useEffect(() => {
     console.log('Raffle state updated:', raffle);
   }, [raffle]);
 
+  // calls fetch data command just to avoid errors at the start
   useEffect(() => {
     fetchData();
   }, []);
 
+  // creates array of numbers 1-10 to be used to create the slots
   const numbers = [];
   for (let i = 0; i < 10; i++) {
     numbers.push(i);
@@ -42,7 +68,7 @@ function App() {
         <div className="raffleBody">
             <Edge type="top"/>
             {numbers.map((number) => (
-              <Slot value={slotValues[number]} slotNumber={number} />
+              <Slot key={number} value={slotValues[number]} slotNumber={number} />
             ))}
             <Edge type="bottom"/>
             <Triangle/>
@@ -83,16 +109,25 @@ function App() {
             });
           }
 
-          await sleep(50); // delay to make the animation smoother
-    
-          let winIndex = (start + spins) % parsedData.length; //gets the winning index to be
+          // gets winning index and sets the winner to be the string at that index
+          let winIndex = (start + spins) % parsedData.length;
           console.log(parsedData[winIndex]);
+          setWinner(parsedData[winIndex][0]);
+
+          // delay to make the animation smoother
+          await sleep(50); 
+    
+          openModal();
         }}>
               Spin
             </button>
         </div>
         
-        <SelectOption/>
+        <Winscreen
+          isOpen={modalIsOpen}
+          closeModal={closeModal}
+          modalText={winner}
+        />
     </div>
     
   );
@@ -102,15 +137,18 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// goes through the data from the spreadsheet to properly run the raffle
 function parseData(data) {
-  // index 4 and 5 correspond to H and I which are boolean, 4 true 5 false
   // only want to keep E(1) and F(2) which is name and email
   // also want to add extra tickets G(3)
   const output = [];
   for (let i = 0; i < data.length; i++) {
-    if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE"))
-    for (let j = 0; j < data[i][3] + 1; j++) {
-      output.push([data[i][1], data[i][2]]);
+    // checks if the entry is both in the venue and has yet to win
+    if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE")) {
+      // accounts for any extra tickets that the entry has
+      for (let j = 0; j < parseInt(data[i][3]) + 1; j++) {
+        output.push([data[i][1], data[i][2]]);
+      }
     }
   }
   return shuffle(output);
@@ -152,12 +190,6 @@ function shuffle(array) {
 function Edge({type}){
   return (
     <div id={type} className="edge"></div>
-  );
-}
-
-function Triangle(){
-  return (
-    <div className="triangle"></div>
   );
 }
 
