@@ -43,6 +43,47 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
   }
 });
 
+app.post('/api/add-winner/:originalIndex/:newRow/:name/:email', async (req, res) => {
+  try {
+    const auth = new JWT(
+      serviceAccount.client_email,
+      null,
+      serviceAccount.private_key,
+      ['https://www.googleapis.com/auth/spreadsheets'],
+    );
+
+    const sheets = google.sheets({ version: 'v4', auth });
+
+    console.log(req.params);
+    // Update won item to TRUE
+    const updateAttendees = await sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `Attendees!I${req.params.originalIndex}`,
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values: [['TRUE']],
+      },
+    });
+
+    // Log the update response (optional)
+    console.log('Update Response');
+
+    const updateWinners = await sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `Winners!A${req.params.newRow}:B${req.params.newRow}`,
+      valueInputOption: 'RAW',
+      resource: {
+        values: [[req.params.name, req.params.email]],
+      },
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error updating cell value:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -19,6 +19,9 @@ function App() {
   // the winner of the raffle
   const [winner, setWinner] = useState('');
 
+  // index of the Winner sheet to be added to the list of winners
+  const [currentWinIndex, setCurrentWinIndex] = useState(1);
+
   // opens Modal on win by setting state to true
   const openModal = () => {
     setModalIsOpen(true);
@@ -41,11 +44,27 @@ function App() {
       const response = await fetch(backendUrl);
       const data = await response.json();
       console.log(Array.isArray(data));
-      await setRaffle(data);    
+      await setRaffle(parseData(data));    
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
+
+  const updateData = async (winArr) => {
+    // creates the api query with the relevant information
+    const backendUrl = `http://localhost:3001/api/add-winner/${winArr[2]}/${currentWinIndex}/${winArr[0]}/${winArr[1]}`;
+
+    try {
+      const response = await fetch(backendUrl,{
+        method: "POST"
+      });
+      const data = await response.json();
+      console.log("Success!");
+      setCurrentWinIndex(currentWinIndex + 1); 
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
 
   // sets the state of raffle array
   useEffect(() => {
@@ -78,9 +97,8 @@ function App() {
         <button id="roll" onClick={async() => {
           fetchData();
           console.log(raffle);
-          const parsedData = await parseData(raffle);
           // picks a random index to start the spin
-          var start = Math.floor(Math.random() * parsedData.length); 
+          var start = Math.floor(Math.random() * raffle.length); 
           // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
           var spins = Math.floor(Math.random() * 20) + 73; 
           for (let i = start; i <= start + spins; i++) {
@@ -99,7 +117,7 @@ function App() {
                 const shiftedSlots = [];
                 for (let j = slotValues.length; j > 0; j--) {
                   //console.log(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
-                  shiftedSlots.push(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
+                  shiftedSlots.push(raffle[(i + j - (slotValues.length / 2)) % raffle.length][0]);
                 }
                 setSlotValues(shiftedSlots);
                 gsap.set(".slot", { //set resets the slots to their original place
@@ -110,13 +128,14 @@ function App() {
           }
 
           // gets winning index and sets the winner to be the string at that index
-          let winIndex = (start + spins) % parsedData.length;
-          console.log(parsedData[winIndex]);
-          setWinner(parsedData[winIndex][0]);
+          let winIndex = (start + spins) % raffle.length;
+          console.log(raffle[winIndex]);
+          setWinner(raffle[winIndex][0]);
 
           // delay to make the animation smoother
           await sleep(50); 
     
+          updateData(raffle[winIndex])
           openModal();
         }}>
               Spin
@@ -147,7 +166,7 @@ function parseData(data) {
     if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE")) {
       // accounts for any extra tickets that the entry has
       for (let j = 0; j < parseInt(data[i][3]) + 1; j++) {
-        output.push([data[i][1], data[i][2]]);
+        output.push([data[i][1], data[i][2], parseInt(i) + 2]);
       }
     }
   }
