@@ -72,6 +72,17 @@ function App() {
   // sets the state of raffle array
   useEffect(() => {
     console.log('Raffle state updated:', raffle);
+    let slots = raffle.slice(0,10);
+    let parseSlots = []
+    for (let i = 0; i < slots.length; i++)
+    {
+      if (slots[i].length > 1)
+      {
+        parseSlots.push(slots[i][0]);
+      }
+    }
+    console.log("CURRENT SLOTS: ", parseSlots);
+    setSlotValues(parseSlots);
   }, [raffle]);
 
   // calls fetch data command just to avoid errors at the start
