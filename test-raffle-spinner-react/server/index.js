@@ -14,7 +14,7 @@ app.use(cors());
 const spreadsheetId = '1GKyP_61jo1Btik3lX_qalejXb_0txDFv5dvhEJ20S24';
 
 app.get('/api/get-google-sheet-data', async (req, res) => {
-console.log("api test");
+  console.log("api test");
   try {
     const auth = new JWT(
       serviceAccount.client_email,
