@@ -43,6 +43,33 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
   }
 });
 
+app.get('/api/get-num-winners', async (req, res) => {
+  console.log("api test");
+  try {
+    const auth = new JWT(
+      serviceAccount.client_email,
+      null,
+      serviceAccount.private_key,
+      ['https://www.googleapis.com/auth/spreadsheets'],
+    );
+
+    const sheets = google.sheets({ version: 'v4', auth });
+
+    const range = `Attendees!I2:I203`; // Update with your desired range
+
+    const response = await sheets.spreadsheets.values.get({
+        spreadsheetId,
+        range,
+    });
+
+    const values = response.data.values;
+    res.json(values);
+  } catch (error) {
+    console.error('Error reading Google Sheet data:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 app.post('/api/add-winner/:originalIndex/:newRow/:name/:email', async (req, res) => {
   try {
     const auth = new JWT(
@@ -54,7 +81,6 @@ app.post('/api/add-winner/:originalIndex/:newRow/:name/:email', async (req, res)
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    console.log(req.params);
     // Update won item to TRUE
     const updateAttendees = await sheets.spreadsheets.values.update({
       spreadsheetId,

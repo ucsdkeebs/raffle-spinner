@@ -17,7 +17,7 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // the winner of the raffle
-  const [winner, setWinner] = useState('');
+  const [winner, setWinner] = useState([]);
 
   //disale button of the raffle
   const [isButtonDisabled, setButtonDisabled] = useState(false);
@@ -46,23 +46,40 @@ function App() {
     try {
       const response = await fetch(backendUrl);
       const data = await response.json();
-      console.log(Array.isArray(data));
       await setRaffle(parseData(data));    
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-  const updateData = async (winArr) => {
+  const fetchNumWinner = async () => {
     // creates the api query with the relevant information
-    const backendUrl = `http://localhost:3001/api/add-winner/${winArr[2]}/${currentWinIndex}/${winArr[0]}/${winArr[1]}`;
+    const backendUrl = `http://localhost:3001/api/get-num-winners`;
+
+    try {
+      const response = await fetch(backendUrl);
+      const data = await response.json();
+      let count = 1;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i][0] === "TRUE") {
+          count++;
+        }
+      }
+      setCurrentWinIndex(count); 
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  const updateData = async () => {
+    // creates the api query with the relevant information
+    const backendUrl = `http://localhost:3001/api/add-winner/${winner[2]}/${currentWinIndex}/${winner[0]}/${winner[1]}`;
 
     try {
       const response = await fetch(backendUrl,{
         method: "POST"
       });
       const data = await response.json();
-      console.log("Success!");
       setCurrentWinIndex(currentWinIndex + 1); 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -88,7 +105,53 @@ function App() {
   // calls fetch data command just to avoid errors at the start
   useEffect(() => {
     fetchData();
+    fetchNumWinner();
   }, []);
+
+  useEffect(() => {
+    console.log("winner " + winner);
+  }, [winner])
+
+  useEffect(() => {
+    console.log(currentWinIndex);
+  }, [currentWinIndex])
+
+  const rollNames = async () => {
+    console.log(raffle);
+    // picks a random index to start the spin
+    var start = Math.floor(Math.random() * raffle.length); 
+    // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
+    var spins = Math.floor(Math.random() * 20) + 73; 
+    for (let i = start; i <= start + spins; i++) {
+      let delay = 0.05;
+      // checks if there is less than 40 spins left, then starts to slow down the spin
+      if (i >= start + spins - 40) {
+        delay = (0.05 + (0.02 * (i - (start + spins - 40)) / 5)); //slows down the spin by 0.004 seconds.
+      }
+            
+      await gsap.to(".slot", { // animates a slide downward
+        duration: delay, // Animation duration in seconds
+        y: "+=8vh", // Move each element down by one slot
+        ease: "power4.out", // Easing function 
+        // after roll completed, resets the divs with new values, i.e. slot2 goes back to its original place, but with the value of the old slot3 so the roll is complete
+        onComplete: () => {
+          const shiftedSlots = [];
+          for (let j = slotValues.length; j > 0; j--) {
+            //console.log(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
+            shiftedSlots.push(raffle[(i + j - (slotValues.length / 2)) % raffle.length][0]);
+          }
+          setSlotValues(shiftedSlots);
+          gsap.set(".slot", { //set resets the slots to their original place
+            y: "-=8vh"
+          })
+        }
+      });
+    }
+
+    // gets winning index and sets the winner to be the string at that index
+    let winIndex = (start + spins) % raffle.length;
+    setWinner(raffle[winIndex]);
+  }
 
   // creates array of numbers 1-10 to be used to create the slots
   const numbers = [];
@@ -110,47 +173,13 @@ function App() {
         <div className="LowerRaffle">
         <button id="roll" disabled = {isButtonDisabled} onClick={async() => {
           setButtonDisabled(true);
-          fetchData();
-          console.log(raffle);
-          // picks a random index to start the spin
-          var start = Math.floor(Math.random() * raffle.length); 
-          // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
-          var spins = Math.floor(Math.random() * 20) + 73; 
-          for (let i = start; i <= start + spins; i++) {
-            let delay = 0.05;
-            // checks if there is less than 40 spins left, then starts to slow down the spin
-            if (i >= start + spins - 40) {
-              delay = (0.05 + (0.02 * (i - (start + spins - 40)) / 5)); //slows down the spin by 0.004 seconds.
-            }
-                  
-            await gsap.to(".slot", { // animates a slide downward
-              duration: delay, // Animation duration in seconds
-              y: "+=8vh", // Move each element down by one slot
-              ease: "power4.out", // Easing function 
-              // after roll completed, resets the divs with new values, i.e. slot2 goes back to its original place, but with the value of the old slot3 so the roll is complete
-              onComplete: () => {
-                const shiftedSlots = [];
-                for (let j = slotValues.length; j > 0; j--) {
-                  //console.log(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
-                  shiftedSlots.push(raffle[(i + j - (slotValues.length / 2)) % raffle.length][0]);
-                }
-                setSlotValues(shiftedSlots);
-                gsap.set(".slot", { //set resets the slots to their original place
-                  y: "-=8vh"
-                })
-              }
-            });
-          }
-
-          // gets winning index and sets the winner to be the string at that index
-          let winIndex = (start + spins) % raffle.length;
-          console.log(raffle[winIndex]);
-          setWinner(raffle[winIndex][0]);
+          await fetchData();
+          
+          await rollNames();
 
           // delay to make the animation smoother
           await sleep(1000); 
     
-          updateData(raffle[winIndex])
           openModal();
           setButtonDisabled(false);
         }}>
@@ -161,7 +190,11 @@ function App() {
         <Winscreen
           isOpen={modalIsOpen}
           closeModal={closeModal}
-          modalText={winner}
+          modalText={winner[0]}
+          remove={() => {
+            updateData()
+            closeModal()
+          }}
         />
     </div>
     

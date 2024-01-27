@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 // Make sure to set appElement to handle accessibility
 Modal.setAppElement('#root');
 
-const Winscreen = ({ isOpen, closeModal, modalText }) => {
+const Winscreen = ({ isOpen, closeModal, modalText, remove }) => {
   const customStyles = {
     content: {
       width: '60%', // Set the width to your desired value
@@ -25,6 +25,7 @@ const Winscreen = ({ isOpen, closeModal, modalText }) => {
       <div className="modal-content">
         <p className="winner">{modalText}</p>
       </div>
+      <button className="winButton" onClick={remove}>Okay</button>
     </Modal>
   );
 };
