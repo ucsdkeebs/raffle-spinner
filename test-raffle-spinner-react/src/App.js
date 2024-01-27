@@ -168,6 +168,7 @@ function parseData(data) {
   const output = [];
   for (let i = 0; i < data.length; i++) {
     // checks if the entry is both in the venue and has yet to win
+    let count = 1;
     if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE")) {
       // accounts for any extra tickets that the entry has
       for (let j = 0; j < parseInt(data[i][3]) + 1; j++) {
