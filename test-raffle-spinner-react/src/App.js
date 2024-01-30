@@ -46,7 +46,8 @@ function App() {
     try {
       const response = await fetch(backendUrl);
       const data = await response.json();
-      await setRaffle(parseData(data));    
+      const info = parseData(data);
+      await setRaffle(info);    
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -104,13 +105,10 @@ function App() {
 
   // calls fetch data command just to avoid errors at the start
   useEffect(() => {
+    console.log('no dependencies');
     fetchData();
     fetchNumWinner();
   }, []);
-
-  useEffect(() => {
-    console.log("winner " + winner);
-  }, [winner])
 
   useEffect(() => {
     console.log(currentWinIndex);
