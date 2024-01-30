@@ -258,46 +258,4 @@ function Edge({type}){
     <div id={type} className="edge"></div>
   );
 }
-
-function SelectOption() {
-
-  const [selectedOption, setSelectedOption] = useState('Names');
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  return (
-    <div id="refreshForm">
-      <h2 >Select an Option:</h2>
-      <form >
-        <label>
-          <input
-            type="radio"
-            name="refreshOption"
-            value="Names"
-            checked={selectedOption === 'Names'}
-            onChange={handleOptionChange}
-            // onClick={}
-          />
-          Names
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            name="refreshOption"
-            value="Numbers"
-            checked={selectedOption === 'Numbers'}
-            onChange={handleOptionChange}
-          />
-          Numbers
-        </label>
-      </form>
-
-      <p>You selected: {selectedOption}</p>
-    </div>
-  );
-}
-
 export default App;
