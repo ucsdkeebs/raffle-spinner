@@ -22,6 +22,7 @@ body {
   src: url(NikkyouSans-mLKax.ttf);
 }
 
+/* raffle body  */
 .raffle {
   display: flex;
   flex-direction: column;
@@ -39,6 +40,7 @@ body {
   position: absolute;
 }
 
+/* Slots*/
 .slot {
   width:20vw;
   height:8vh;
@@ -49,51 +51,18 @@ body {
   font-size: 1.5rem;
 }
 
+#slot0 {
+  clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%);
+}
+
+#slot9 {
+  clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
+}
+/* edges */
 .edge {
   width: 21vw;
   height: 10vh;
   background-color: #f0f0f0;
-}
-
-.frame {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  flex: 1;
-
-  
-}
-
-.Animation {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: left;
-  position: absolute;
-  flex: 1;
-}
-
-#slotframe {
-  max-width: 45%;
-  max-height: auto;
-  position: static;
-  z-index: 1000;
-
-}
-
-#animation_frame {
-  max-width: 25%;
-  max-height: auto;
-  position: relative;
-  z-index: 1000;
-}
-
-#refreshForm {
-  position: absolute;
-  top: 38vh;
-  right: 62%;
 }
 
 #top {
@@ -106,14 +75,47 @@ body {
   z-index: 1;
 }
 
-#slot0 {
-  clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%);
+/* overlay  */
+.frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  flex: 1;
 }
 
-#slot9 {
-  clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
+#slotframe {
+  max-width: 45%;
+  max-height: auto;
+  position: static;
+  z-index: 1000;
 }
 
+/*animation*/
+.Animation {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: left;
+  position: absolute;
+  flex: 1;
+}
+
+#animation_frame {
+  max-width: 25%;
+  max-height: auto;
+  position: relative;
+  z-index: 1000;
+}
+
+/* button (WILL PROB REMOVE SOON)*/
+.LowerRaffle {
+  margin-top: 1vh;
+  z-index:10000;
+}
+
+/*modal*/
 .modal-content {
   background-color: #da5f5f;
   margin: auto;
@@ -121,11 +123,6 @@ body {
   border: 1px solid #888;
   max-width: 90%;
   z-index:100;
-}
-
-.LowerRaffle {
-  margin-top: 1vh;
-  z-index:10000;
 }
 
 .winner {
