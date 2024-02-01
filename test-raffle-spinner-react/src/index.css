@@ -1,5 +1,6 @@
 html * {
-  font-family: Arial, sans-serif !important; /* !important means that font-family can't be overwritten*/
+  /* font-family: Arial, sans-serif !important; !important means that font-family can't be overwritten */
+  font-family: NikkyouSans;
 }
 
 html {
@@ -14,6 +15,11 @@ body {
   align-items: center;
   height: 100vh;
   background-color: #f0f0f0;
+}
+
+@font-face {
+  font-family: NikkyouSans;
+  src: url(NikkyouSans-mLKax.ttf);
 }
 
 .raffle {
@@ -36,7 +42,7 @@ body {
 .slot {
   width:20vw;
   height:8vh;
-  border: 2px solid #333;
+  border: 3px solid #471E20;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,8 +78,9 @@ body {
 #slotframe {
   max-width: 45%;
   max-height: auto;
-  position: relative;
+  position: static;
   z-index: 1000;
+
 }
 
 #animation_frame {
