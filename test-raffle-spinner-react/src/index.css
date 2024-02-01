@@ -21,6 +21,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  float:left;
 }
 
 .raffleBody {
@@ -28,6 +29,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 100;
+  position: absolute;
 }
 
 .slot {
@@ -40,22 +43,44 @@ body {
   font-size: 1.5rem;
 }
 
-.triangle {
-  position: absolute;
-  top: 48vh;
-  left: 62%;
-  transform: translate(-50%, -50%) rotate(270deg); /* Rotate the arrow */
-  width: 0;
-  height: 0;
-  border-left: 4vh solid transparent;
-  border-right: 4vh solid transparent;
-  border-bottom: 12vh solid #fbff00; /* Color of the arrow, match Slot background */
-}
-
 .edge {
   width: 21vw;
   height: 10vh;
-  background-color: gray;
+  background-color: #f0f0f0;
+}
+
+.frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  flex: 1;
+
+  
+}
+
+.Animation {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: left;
+  position: absolute;
+  flex: 1;
+}
+
+#slotframe {
+  max-width: 45%;
+  max-height: auto;
+  position: relative;
+  z-index: 1000;
+}
+
+#animation_frame {
+  max-width: 25%;
+  max-height: auto;
+  position: relative;
+  z-index: 1000;
 }
 
 #refreshForm {
@@ -83,15 +108,17 @@ body {
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: #da5f5f;
   margin: auto;
   padding: 4vh;
   border: 1px solid #888;
   max-width: 90%;
+  z-index:100;
 }
 
 .LowerRaffle {
-  margin-top: 4vh;
+  margin-top: 1vh;
+  z-index:10000;
 }
 
 .winner {
@@ -100,11 +127,11 @@ body {
 }
 
 .close {
-  color: #aaa;
+  color: #f0f0f0;
   float: right;
   font-size: 1.5rem;
   font-weight: bold;
-  z-index: 2;
+  z-index: 100;
 }
 
 .close:hover,

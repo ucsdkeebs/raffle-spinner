@@ -5,6 +5,8 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from 'gsap';
 import Triangle from './triangle.jsx';
 import Winscreen from './winscreen.jsx';
+import AnimationRenderer from './animation.jsx';
+import raffleFrame from './img/Raffle_Frame.png';
 
 function App() {
   // array to store raffle data
@@ -159,13 +161,23 @@ function App() {
 
   return (
     <div className="raffle">
+        
+        <div className = "frame">
+            <img id="slotframe" src={raffleFrame} alt="Raffle Frame" />
+        </div> 
+
+        <div className ="Animation">
+            <AnimationRenderer/>
+            {/* <img id = "animation_frame" src = {require("./img/Animation_Frames/kwibs_0000.png")} alt="test" /> */}
+        </div>
+        
         <div className="raffleBody">
+            
             <Edge type="top"/>
             {numbers.map((number) => (
               <Slot key={number} value={slotValues[number]} slotNumber={number} />
             ))}
             <Edge type="bottom"/>
-            <Triangle/>
         </div>
 
         <div className="LowerRaffle">
