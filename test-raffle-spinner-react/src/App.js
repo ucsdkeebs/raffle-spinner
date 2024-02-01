@@ -9,11 +9,17 @@ import AnimationRenderer from './animation.jsx';
 import raffleFrame from './img/Raffle_Frame.png';
 
 function App() {
+
+  const images =  require.context('./img/Animation_Frames', true);
+  const frames = images.keys().map(image => images(image));
+  const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
+
   // array to store raffle data
   const [raffle, setRaffle] = useState([]);
   
   // the values that are displayed on the slot
   const [slotValues, setSlotValues] = useState(['.','.','.','.','.','.','.','.','.','.'])
+  
 
   // whether or not the modal should be opened
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -180,8 +186,8 @@ function App() {
     }
 
     // gets winning index and sets the winner to be the string at that index
-    let winIndex = (start + spins) % raffle.length;
-    setWinner(raffle[winIndex]);
+    let winIndex = (start + spins) % raffleNames.length;
+    setWinner(raffleNames[winIndex]);
   }
 
   // creates array of numbers 1-10 to be used to create the slots
@@ -190,48 +196,40 @@ function App() {
     numbers.push(i);
   }
 
+  const handleAnimationClick = async () => {
+    setButtonDisabled(true);
+    const protectedId = await addProtectedData();
+    const updatedRaffle = await fetchData();
+    console.log(updatedRaffle);
+    
+    await rollNames(updatedRaffle);
+    await sleep(1000);
+  
+    openModal();
+    updateProtectData(protectedId);
+    setButtonDisabled(false);
+  };  
+
   return (
     <div className="raffle">
-        
-        <div className = "frame">
-            <img id="slotframe" src={raffleFrame} alt="Raffle Frame" />
-        </div> 
 
         <div className ="Animation">
-            <AnimationRenderer/>
-            {/* <img id = "animation_frame" src = {require("./img/Animation_Frames/kwibs_0000.png")} alt="test" /> */}
+            <AnimationRenderer onAnimate={handleAnimationClick}/>
         </div>
-        
-        <div className="raffleBody">
+
+        <div className = "frame">
+            <img id="slotframe" src={raffleFrame} alt="Raffle Frame" />
             
-            <Edge type="top"/>
+        </div> 
+        <div className="raffleBody">
+          
             {numbers.map((number) => (
               <Slot key={number} value={slotValues[number]} slotNumber={number} />
             ))}
-            <Edge type="bottom"/>
         </div>
-
+       
+        {/*Keep this in case it messes with formatting */}
         <div className="LowerRaffle">
-        <button id="roll" disabled = {isButtonDisabled} onClick={async() => {
-          setButtonDisabled(true);
-          const protectedId = await addProtectedData();
-          const updatedRaffle = await fetchData();
-          console.log(updatedRaffle);
-          //setRaffle(raffle);
-
-          // gets the newest updated version of raffle
-          
-          await rollNames(updatedRaffle);
-
-          // delay to make the animation smoother
-          await sleep(1000); 
-    
-          openModal();
-          updateProtectData(protectedId);
-          setButtonDisabled(false);
-        }}>
-              Spin
-            </button>
         </div>
         
         <Winscreen

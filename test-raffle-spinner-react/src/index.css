@@ -29,6 +29,7 @@ body {
   justify-content: center;
   align-items: center;
   float:left;
+  max-width:100%;
 }
 
 .raffleBody {
@@ -36,13 +37,17 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 1;
   position: absolute;
+  max-width: 100%;
+  /* height: 80vh; */
+  width:23.5vw;
+  
 }
 
 /* Slots*/
 .slot {
-  width:20vw;
+  width:22.7vw;
   height:8vh;
   border: 3px solid #471E20;
   display: flex;
@@ -52,11 +57,33 @@ body {
 }
 
 #slot0 {
-  clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%);
+  /* clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%); */
+  background-color: #f0f0f0;
+  border-color: #f0f0f0;
+  color: #f0f0f0;
+}
+
+#slot1 {
+  /* clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0); */
+  background-color: #f0f0f0;
+  border-color: #f0f0f0;
+  border-bottom: #471E20;
+}
+
+#slot8 {
+  /* clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0); */
+  background-color: #f0f0f0;
+  border-top: #471E20;
+  border-color: #f0f0f0;
+  border-bottom: #471E20;
 }
 
 #slot9 {
-  clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
+  /* clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0); */
+  background-color: #f0f0f0;
+  border-color: #f0f0f0;
+  color: #f0f0f0;
+  border-top: #471E20;
 }
 /* edges */
 .edge {
@@ -67,12 +94,14 @@ body {
 
 #top {
   margin-bottom: -12vh;
-  z-index: 1;
+  background-color: #f0f0f0;
+  z-index: 10;
 }
 
 #bottom {
   margin-top: -4vh;
-  z-index: 1;
+  background-color: #f0f0f0;
+  z-index: 5;
 }
 
 /* overlay  */
@@ -81,15 +110,18 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: static;
   flex: 1;
+  max-width: 45%;
+  background-color: #f0f0f0;
 }
 
 #slotframe {
-  max-width: 45%;
-  max-height: auto;
+  width: 40vw;
+  /* max-height: auto; */
   position: static;
-  z-index: 1000;
+  z-index: 10;
+  
 }
 
 /*animation*/
@@ -106,13 +138,13 @@ body {
   max-width: 25%;
   max-height: auto;
   position: relative;
-  z-index: 1000;
+  z-index: 10;
 }
 
 /* button (WILL PROB REMOVE SOON)*/
 .LowerRaffle {
   margin-top: 1vh;
-  z-index:10000;
+  z-index:10;
 }
 
 /*modal*/
@@ -135,7 +167,7 @@ body {
   float: right;
   font-size: 1.5rem;
   font-weight: bold;
-  z-index: 100;
+  z-index: 15;
 }
 
 .close:hover,
