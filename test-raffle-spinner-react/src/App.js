@@ -37,6 +37,34 @@ function App() {
     setModalIsOpen(false);
   };
 
+  // calls fetch data command just to avoid errors at the start
+  useEffect(() => {
+    console.log('no dependencies');
+    fetchData();
+    fetchNumWinner();
+  }, []);
+
+  // sets the state of raffle array
+  useEffect(() => {
+    console.log('Raffle state updated:', raffle);
+    let slots = raffle.slice(0,10);
+    let parseSlots = []
+    for (let i = 0; i < slots.length; i++)
+    {
+      if (slots[i].length > 1)
+      {
+        parseSlots.push(slots[i][0]);
+      }
+    }
+    console.log("CURRENT SLOTS: ", parseSlots);
+    setSlotValues(parseSlots);
+  }, [raffle]);
+
+  useEffect(() => {
+    console.log(currentWinIndex);
+  }, [currentWinIndex])
+
+
   /**
    * Calls to GoogleSheets API to retrieve list of valid people to enter raffle
    * sets the raffle array to this list retrieved
@@ -49,7 +77,8 @@ function App() {
       const response = await fetch(backendUrl);
       const data = await response.json();
       const info = parseData(data);
-      await setRaffle(info);    
+      setRaffle(info); 
+      return info;   
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -74,6 +103,34 @@ function App() {
     }
   }
 
+  const addProtectedData = async () => {
+    console.log('protecting data');
+    const backendUrl = 'http://localhost:3001/api/add-protection';
+
+    try {
+      const response = await fetch(backendUrl,{
+        method: "POST"
+      });
+      const protectedId = await response.json();
+      return protectedId;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  const updateProtectData = async (dataProtected) => {
+    console.log(`unprotecting Data: ${dataProtected}`);
+    const backendUrl = `http://localhost:3001/api/remove-protection/${dataProtected}`;
+
+    try {
+      const response = await fetch(backendUrl, {
+        method: "POST"
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
   const updateData = async () => {
     // creates the api query with the relevant information
     const backendUrl = `http://localhost:3001/api/add-winner/${winner[2]}/${currentWinIndex}/${winner[0]}/${winner[1]}`;
@@ -82,44 +139,17 @@ function App() {
       const response = await fetch(backendUrl,{
         method: "POST"
       });
-      const data = await response.json();
+      //const data = await response.json();
       setCurrentWinIndex(currentWinIndex + 1); 
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
 
-  // sets the state of raffle array
-  useEffect(() => {
-    console.log('Raffle state updated:', raffle);
-    let slots = raffle.slice(0,10);
-    let parseSlots = []
-    for (let i = 0; i < slots.length; i++)
-    {
-      if (slots[i].length > 1)
-      {
-        parseSlots.push(slots[i][0]);
-      }
-    }
-    console.log("CURRENT SLOTS: ", parseSlots);
-    setSlotValues(parseSlots);
-  }, [raffle]);
-
-  // calls fetch data command just to avoid errors at the start
-  useEffect(() => {
-    console.log('no dependencies');
-    fetchData();
-    fetchNumWinner();
-  }, []);
-
-  useEffect(() => {
-    console.log(currentWinIndex);
-  }, [currentWinIndex])
-
-  const rollNames = async () => {
-    console.log(raffle);
+  const rollNames = async (raffleNames) => {
+    console.log(raffleNames);
     // picks a random index to start the spin
-    var start = Math.floor(Math.random() * raffle.length); 
+    var start = Math.floor(Math.random() * raffleNames.length); 
     // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
     var spins = Math.floor(Math.random() * 20) + 73; 
     for (let i = start; i <= start + spins; i++) {
@@ -138,7 +168,8 @@ function App() {
           const shiftedSlots = [];
           for (let j = slotValues.length; j > 0; j--) {
             //console.log(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
-            shiftedSlots.push(raffle[(i + j - (slotValues.length / 2)) % raffle.length][0]);
+            let index = (i + j - (slotValues.length / 2));
+            shiftedSlots.push(raffleNames[(index >= 0 ? index : raffleNames.length + index) % raffleNames.length][0]);
           }
           setSlotValues(shiftedSlots);
           gsap.set(".slot", { //set resets the slots to their original place
@@ -183,14 +214,20 @@ function App() {
         <div className="LowerRaffle">
         <button id="roll" disabled = {isButtonDisabled} onClick={async() => {
           setButtonDisabled(true);
-          await fetchData();
+          const protectedId = await addProtectedData();
+          const updatedRaffle = await fetchData();
+          console.log(updatedRaffle);
+          //setRaffle(raffle);
+
+          // gets the newest updated version of raffle
           
-          await rollNames();
+          await rollNames(updatedRaffle);
 
           // delay to make the animation smoother
           await sleep(1000); 
     
           openModal();
+          updateProtectData(protectedId);
           setButtonDisabled(false);
         }}>
               Spin
