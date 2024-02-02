@@ -167,7 +167,7 @@ function App() {
             
       await gsap.to(".slot", { // animates a slide downward
         duration: delay, // Animation duration in seconds
-        y: "+=8vh", // Move each element down by one slot
+        y: "+=4.54vw", // Move each element down by one slot
         ease: "power4.out", // Easing function 
         // after roll completed, resets the divs with new values, i.e. slot2 goes back to its original place, but with the value of the old slot3 so the roll is complete
         onComplete: () => {
@@ -179,7 +179,7 @@ function App() {
           }
           setSlotValues(shiftedSlots);
           gsap.set(".slot", { //set resets the slots to their original place
-            y: "-=8vh"
+            y: "-=4.54vw"
           })
         }
       });
@@ -214,7 +214,7 @@ function App() {
     <div className="raffle">
 
         <div className ="Animation">
-            <AnimationRenderer onAnimate={handleAnimationClick}/>
+            <AnimationRenderer onAnimate={handleAnimationClick} hoverFrameCount={32}/>
         </div>
 
         <div className = "frame">
@@ -233,7 +233,7 @@ function App() {
         <div className="LowerRaffle">
         </div>
         
-        <Winscreen
+        {/* <Winscreen
           isOpen={modalIsOpen}
           closeModal={closeModal}
           modalText={winner[0]}
@@ -241,7 +241,7 @@ function App() {
             updateData()
             closeModal()
           }}
-        />
+        /> */}
     </div>
     
   );

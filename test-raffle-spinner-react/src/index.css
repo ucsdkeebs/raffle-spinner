@@ -15,6 +15,7 @@ body {
   align-items: center;
   height: 100vh;
   background-color: #f0f0f0;
+  background-image: url("./img/temp-background.png");
 }
 
 @font-face {
@@ -44,13 +45,14 @@ body {
 
 /* Slots*/
 .slot {
-  width: 23vw;
-  height: calc(23vw / 5); /* Replace [Your Aspect Ratio] with the aspect ratio of your slot */
+  width: 22.7vw;
+  height: calc(22.7vw / 5); /* Replace [Your Aspect Ratio] with the aspect ratio of your slot */
   border: 3px solid #471E20;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
+  background-color: #f0f0f0;
 }
 
 #slot0 {
@@ -76,14 +78,15 @@ body {
   border-bottom: #471E20;
   color: #f0f0f0;;
 } */
-/* 
+
 #slot9 {
   clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
   border-color: #f0f0f0;
   color: #f0f0f0;
   border-top: #471E20;
-} */
+  border-top-width: 6px;
+}
 /* edges */
 .edge {
   width: 21vw;
@@ -112,7 +115,7 @@ body {
   position: static;
   flex: 1;
   max-width: 45%;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
 }
 
 #slotframe {
@@ -139,6 +142,11 @@ body {
   max-height: auto;
   position: relative;
   z-index: 10;
+}
+
+.Animation:hover {
+  border-color: black;
+  border-radius: 10px;
 }
 
 /* button (WILL PROB REMOVE SOON)*/
