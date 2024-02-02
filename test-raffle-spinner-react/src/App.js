@@ -222,11 +222,11 @@ function App() {
             
         </div> 
         <div className="raffleBody">
-            <Edge id="top"/>
+            {/* <Edge id="top"/> */}
             {numbers.map((number) => (
               <Slot key={number} value={slotValues[number]} slotNumber={number} />
             ))}
-            <Edge id="bottom"/>
+            {/* <Edge id="bottom"/> */}
         </div>
        
         {/*Keep this in case it messes with formatting */}

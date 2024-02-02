@@ -39,16 +39,13 @@ body {
   align-items: center;
   z-index: 1;
   position: absolute;
-  max-width: 100%;
-  /* height: 80vh; */
-  width:23.5vw;
-  
+  width: 23.5vw; /* You may adjust this based on your layout */
 }
 
 /* Slots*/
 .slot {
-  width:22.7vw;
-  height:8vh;
+  width: 23vw;
+  height: calc(23vw / 5); /* Replace [Your Aspect Ratio] with the aspect ratio of your slot */
   border: 3px solid #471E20;
   display: flex;
   justify-content: center;
@@ -57,14 +54,14 @@ body {
 }
 
 #slot0 {
-  /* clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%); */
-  background-color: #f0f0f0;
+  clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%);
+  /* background-color: #f0f0f0;
   border-color: #f0f0f0;
-  color: #f0f0f0;
+  color: #f0f0f0; */
 }
 
-#slot1 {
-  /* clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0); */
+/* #slot1 {
+  clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
   background-color: #f0f0f0;
   border-color: #f0f0f0;
   border-bottom: #471E20;
@@ -72,21 +69,21 @@ body {
 }
 
 #slot8 {
-  /* clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0); */
+  clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
   background-color: #f0f0f0;
   border-top: #471E20;
   border-color: #f0f0f0;
   border-bottom: #471E20;
-  /* color: #f0f0f0;; */
-}
-
+  color: #f0f0f0;;
+} */
+/* 
 #slot9 {
-  /* clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0); */
+  clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
   background-color: #f0f0f0;
   border-color: #f0f0f0;
   color: #f0f0f0;
   border-top: #471E20;
-}
+} */
 /* edges */
 .edge {
   width: 21vw;
@@ -119,11 +116,11 @@ body {
 }
 
 #slotframe {
-  width: 40vw;
-  /* max-height: auto; */
+  width: 40vw; 
+  height: auto; /* This ensures the image height scales with its width */
+  object-fit: cover; /* This ensures the image maintains its aspect ratio */
   position: static;
   z-index: 10;
-  
 }
 
 /*animation*/
