@@ -15,7 +15,7 @@ body {
   align-items: center;
   height: 100vh;
   background-color: #f0f0f0;
-  background-image: url("./img/temp-background.png");
+  background-image: url("./img/raffle_bg.png");
 }
 
 @font-face {
