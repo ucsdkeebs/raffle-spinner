@@ -240,7 +240,7 @@ function App() {
             updateData()
             closeModal()
           }}
-        /> */}
+        /> 
     </div>
     
   );
