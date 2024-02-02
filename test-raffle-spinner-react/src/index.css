@@ -52,7 +52,7 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  background-color: #f0f0f0;
+  background-color: #fffede;
 }
 
 #slot0 {
@@ -82,8 +82,8 @@ body {
 #slot9 {
   clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
   /* background-color: #f0f0f0; */
-  border-color: #f0f0f0;
-  color: #f0f0f0;
+  border-color: #fffede;
+  color: #fffede;
   border-top: #471E20;
   border-top-width: 6px;
 }
@@ -182,7 +182,7 @@ body {
 }
 
 .close {
-  color: #f0f0f0;
+  color: #fffede;
   float: right;
   font-size: 1.5rem;
   font-weight: bold;
@@ -199,7 +199,7 @@ body {
 .winButton {
   margin-top: 5%;
   align-self: center;
-  background-color: #fff;
+  background-color: #fffede;
   background-image: none;
   background-position: 0 90%;
   background-repeat: repeat no-repeat;
@@ -212,7 +212,6 @@ body {
   color: #41403e;
   cursor: pointer;
   display: inline-block;
-  font-family: Neucha, sans-serif;
   font-size: 1rem;
   line-height: 23px;
   outline: none;
