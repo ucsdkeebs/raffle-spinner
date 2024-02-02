@@ -38,9 +38,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1;
   position: absolute;
   width: 23.5vw; /* You may adjust this based on your layout */
+  z-index: -1;
 }
 
 /* Slots*/
@@ -97,13 +97,11 @@ body {
 #top {
   margin-bottom: -12vh;
   background-color: #f0f0f0;
-  z-index: 10;
 }
 
 #bottom {
   margin-top: -4vh;
   background-color: #f0f0f0;
-  z-index: 5;
 }
 
 /* overlay  */
@@ -115,7 +113,7 @@ body {
   position: static;
   flex: 1;
   max-width: 45%;
-  /* background-color: #f0f0f0; */
+  /*background-color: #f0f0f0;*/
 }
 
 #slotframe {
@@ -123,7 +121,6 @@ body {
   height: auto; /* This ensures the image height scales with its width */
   object-fit: cover; /* This ensures the image maintains its aspect ratio */
   position: static;
-  z-index: 10;
 }
 
 /*animation*/
@@ -140,8 +137,7 @@ body {
 #animation_frame {
   max-width: 35%;
   max-height: auto;
-  position: relative;
-  z-index: 10;
+  /*position: relative;*/
 }
 
 .Animation:hover {
@@ -152,7 +148,14 @@ body {
 /* button (WILL PROB REMOVE SOON)*/
 .LowerRaffle {
   margin-top: 1vh;
-  z-index:10;
+}
+
+.modal {
+  z-index: 10;
+}
+
+.modal * {
+  z-index: inherit;
 }
 
 /*modal*/
@@ -162,7 +165,7 @@ body {
   padding: 4vh;
   border: 1px solid #888;
   max-width: 90%;
-  z-index:100;
+  z-index:2;
 }
 
 .winner {
@@ -175,7 +178,7 @@ body {
   float: right;
   font-size: 1.5rem;
   font-weight: bold;
-  z-index: 15;
+  font-family: Arial;
 }
 
 .close:hover,
