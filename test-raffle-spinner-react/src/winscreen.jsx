@@ -11,6 +11,7 @@ const Winscreen = ({ isOpen, closeModal, modalText, remove }) => {
       margin: 'auto', // Center the modal horizontally
       maxHeight: '33%', // Set the maximum height to avoid taking up the entire viewport
       overflow: 'auto', // Enable vertical scrolling if needed
+      Zindex: 2,
     },
   };
 
@@ -21,11 +22,13 @@ const Winscreen = ({ isOpen, closeModal, modalText, remove }) => {
       contentLabel="win-screen"
       style={customStyles}
     >
-      <span className="close" onClick={closeModal}>&times;</span>
-      <div className="modal-content">
-        <p className="winner">{modalText}</p>
+      <div className="modal">
+        <span className="close" onClick={closeModal}>&times;</span>
+        <div className="modal-content">
+          <p className="winner">{modalText}</p>
+        </div>
+        <button className="winButton" onClick={remove}>Okay</button>
       </div>
-      <button className="winButton" onClick={remove}>Okay</button>
     </Modal>
   );
 };

@@ -219,7 +219,6 @@ function App() {
 
         <div className = "frame">
             <img id="slotframe" src={raffleFrame} alt="Raffle Frame" />
-            
         </div> 
         <div className="raffleBody">
             {/* <Edge id="top"/> */}
@@ -232,7 +231,7 @@ function App() {
         {/*Keep this in case it messes with formatting */}
         <div className="LowerRaffle">
         </div>
-        
+
         <Winscreen
           isOpen={modalIsOpen}
           closeModal={closeModal}
