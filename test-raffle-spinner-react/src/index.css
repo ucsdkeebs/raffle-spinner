@@ -68,6 +68,7 @@ body {
   background-color: #f0f0f0;
   border-color: #f0f0f0;
   border-bottom: #471E20;
+  color: #f0f0f0;
 }
 
 #slot8 {
@@ -76,6 +77,7 @@ body {
   border-top: #471E20;
   border-color: #f0f0f0;
   border-bottom: #471E20;
+  /* color: #f0f0f0;; */
 }
 
 #slot9 {
@@ -132,10 +134,11 @@ body {
   align-items: left;
   position: absolute;
   flex: 1;
+  margin-top: 55vh;
 }
 
 #animation_frame {
-  max-width: 25%;
+  max-width: 35%;
   max-height: auto;
   position: relative;
   z-index: 10;
