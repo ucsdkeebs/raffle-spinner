@@ -7,10 +7,11 @@ Modal.setAppElement('#root');
 const Winscreen = ({ isOpen, closeModal, modalText, remove }) => {
   const customStyles = {
     content: {
-      width: '60%', // Set the width to your desired value
+      width: '50%', // Set the width to your desired value
       margin: 'auto', // Center the modal horizontally
-      maxHeight: '33%', // Set the maximum height to avoid taking up the entire viewport
+      maxHeight: '30%', // Set the maximum height to avoid taking up the entire viewport
       overflow: 'auto', // Enable vertical scrolling if needed
+      backgroundColor: 'rgba(250, 229, 175, 1)',
       Zindex: 2,
     },
   };
@@ -26,9 +27,11 @@ const Winscreen = ({ isOpen, closeModal, modalText, remove }) => {
         <span className="close" onClick={closeModal}>&times;</span>
         <div className="modal-content">
           <p className="winner">{modalText}</p>
+          <button className="winButton" onClick={remove}>Okay</button>
         </div>
-        <button className="winButton" onClick={remove}>Okay</button>
+        
       </div>
+      
     </Modal>
   );
 };
