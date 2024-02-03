@@ -1,9 +1,7 @@
 import './App.css';
 //import { Button } from '@mui/material';
 import {useState, useEffect} from 'react';
-import { useGSAP } from "@gsap/react";
 import { gsap } from 'gsap';
-import Triangle from './triangle.jsx';
 import Winscreen from './winscreen.jsx';
 import AnimationRenderer from './animation.jsx';
 import raffleFrame from './img/Raffle_Frame.png';
@@ -52,7 +50,7 @@ function App() {
 
   // sets the state of raffle array
   useEffect(() => {
-    console.log('Raffle state updated:', raffle);
+    //console.log('Raffle state updated:', raffle);
     let slots = raffle.slice(0,10);
     let parseSlots = []
     for (let i = 0; i < slots.length; i++)
@@ -62,7 +60,7 @@ function App() {
         parseSlots.push(slots[i][0]);
       }
     }
-    console.log("CURRENT SLOTS: ", parseSlots);
+    //console.log("CURRENT SLOTS: ", parseSlots);
     setSlotValues(parseSlots);
   }, [raffle]);
 
@@ -76,7 +74,7 @@ function App() {
    * sets the raffle array to this list retrieved
    */
   const fetchData = async () => {
-    console.log('fetch test!');
+    //console.log('fetch test!');
     const backendUrl = 'http://localhost:3001/api/get-google-sheet-data';
 
     try {
@@ -110,7 +108,7 @@ function App() {
   }
 
   const addProtectedData = async () => {
-    console.log('protecting data');
+    //console.log('protecting data');
     const backendUrl = 'http://localhost:3001/api/add-protection';
 
     try {
@@ -125,7 +123,7 @@ function App() {
   }
 
   const updateProtectData = async (dataProtected) => {
-    console.log(`unprotecting Data: ${dataProtected}`);
+    //console.log(`unprotecting Data: ${dataProtected}`);
     const backendUrl = `http://localhost:3001/api/remove-protection/${dataProtected}`;
 
     try {
@@ -139,7 +137,7 @@ function App() {
 
   const updateData = async () => {
     // creates the api query with the relevant information
-    const backendUrl = `http://localhost:3001/api/add-winner/${winner[2]}/${currentWinIndex}/${winner[0]}/${winner[1]}`;
+    const backendUrl = `http://localhost:3001/api/add-winner/${winner[3]}/${currentWinIndex}/${winner[0]}/${winner[1]}/${winner[2]}`;
 
     try {
       const response = await fetch(backendUrl,{
@@ -259,7 +257,7 @@ function parseData(data) {
     if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE")) {
       // accounts for any extra tickets that the entry has
       for (let j = 0; j < parseInt(data[i][3]) + 1; j++) {
-        output.push([data[i][1], data[i][2], parseInt(i) + 2]);
+        output.push([data[i][1], data[i][2], data[i][0], parseInt(i) + 2]);
       }
     }
   }

@@ -27,11 +27,11 @@ const Winscreen = ({ isOpen, closeModal, modalText, remove }) => {
       <div className="modal">
         <span className="close" onClick={closeModal}>&times;</span>
         <div className="modal-content">
-          <img class="modal_logo" id="modal_left" src={require('./img/kwibs_modal.png')} alt="modal_left"/>
+          <img className="modal_logo" id="modal_left" src={require('./img/kwibs_modal.png')} alt="modal_left"/>
           <p className="winner">{modalText}</p>
-          <img class="modal_logo" id="modal_right" src={require('./img/kwibs_modal.png')} alt="modal_right"/>
+          <img className="modal_logo" id="modal_right" src={require('./img/kwibs_modal.png')} alt="modal_right"/>
         </div>
-        <div class="ok">
+        <div className="ok">
           <button className="winButton" onClick={remove}>Okay</button>
         </div>
         {/* <button className="winButton" onClick={remove}>Okay</button> */}

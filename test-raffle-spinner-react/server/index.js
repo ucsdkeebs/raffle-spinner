@@ -10,11 +10,11 @@ const PORT = 3001;
 app.use(cors());
 
 // the id can be found by looking after /d/ in the sheet URL
-const spreadsheetId = '1vBXnd9Z7slwU-mAfq_X_56UGrd1Fjy8-ATefa3JQeUo';
+const spreadsheetId = '18beUG4b0cNLogO8NFJPVvbB4kdFJPNSi7Wlc4nzBiPY';
 
 // fetches the google sheet data from a specific range
 app.get('/api/get-google-sheet-data', async (req, res) => {
-  console.log("api test");
+  //console.log("api test");
   try {
     // creates auth credentials to use the service account
     const auth = new JWT(
@@ -29,7 +29,7 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
     // gets the last row of Attendees that has data
     //const lastRow = sheets.data.sheets[0].data[0].rowData.length;
     // Specify the range you want to read
-    const range = `Attendees!E2:I600`; // Update with your desired range
+    const range = `Attendees!D2:I600`; // Update with your desired range
 
     // Actually gets the spreadsheet values after passing the spreadsheetId and the range of values
     const response = await sheets.spreadsheets.values.get({
@@ -48,7 +48,7 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
 
 // finds which row to place the most recent winner on, for more private info to verify
 app.get('/api/get-num-winners', async (req, res) => {
-  console.log("api test");
+  //console.log("api test");
   try {
     // creates credentials for service account
     const auth = new JWT(
@@ -85,7 +85,7 @@ app.get('/api/get-num-winners', async (req, res) => {
 * name: winner's name
 * email: winner's email
 */
-app.post('/api/add-winner/:originalIndex/:newRow/:name/:email', async (req, res) => {
+app.post('/api/add-winner/:originalIndex/:newRow/:name/:email/:orderid', async (req, res) => {
   try {
     // credential creation
     const auth = new JWT(
@@ -108,15 +108,15 @@ app.post('/api/add-winner/:originalIndex/:newRow/:name/:email', async (req, res)
     });
 
     // Log the update response (optional)
-    console.log('Update Response');
+    //console.log('Update Response');
 
     // Updates the winners sheet to have the information of the new winner
     const updateWinners = await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `Winners!A${req.params.newRow}:B${req.params.newRow}`,
+      range: `Winners!A${req.params.newRow}:C${req.params.newRow}`,
       valueInputOption: 'RAW',
       resource: {
-        values: [[req.params.name, req.params.email]],
+        values: [[req.params.name, req.params.email, req.params.orderid]],
       },
     });
 
@@ -129,7 +129,7 @@ app.post('/api/add-winner/:originalIndex/:newRow/:name/:email', async (req, res)
 
 // updates the spreadsheet so that values can't be changed mid spin
 app.post('/api/add-protection', async (req, res) => {
-  console.log("protected!");
+  //console.log("protected!");
 
   const auth = new JWT(
     serviceAccount.client_email,
@@ -149,11 +149,11 @@ app.post('/api/add-protection', async (req, res) => {
             addProtectedRange: {
               protectedRange: {
                 range: {
-                  sheetId: 2079318352, // Sheet ID, 0 for the first sheet
+                  sheetId: 1581120529, // Sheet ID, 0 for the first sheet
                   startRowIndex: 1,
                   endRowIndex: 600, // Adjust as needed
                   startColumnIndex: 0,
-                  endColumnIndex: 8, // Adjust as needed
+                  endColumnIndex: 7, // Adjust as needed
                 },
                 warningOnly: true,
                 requestingUserCanEdit: false,
@@ -174,7 +174,7 @@ app.post('/api/add-protection', async (req, res) => {
 
 // updates the spreadsheet again so that the values can be entered
 app.post('/api/remove-protection/:sheetID', async (req, res) => {
-  console.log("removing protection!");
+  //console.log("removing protection!");
 
   const auth = new JWT(
     serviceAccount.client_email,
