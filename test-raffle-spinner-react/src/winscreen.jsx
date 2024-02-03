@@ -9,8 +9,8 @@ const Winscreen = ({ isOpen, closeModal, modalText, remove }) => {
     content: {
       width: '50%', // Set the width to your desired value
       margin: 'auto', // Center the modal horizontally
-      maxHeight: '30%', // Set the maximum height to avoid taking up the entire viewport
-      overflow: 'auto', // Enable vertical scrolling if needed
+      maxHeight: '35%', // Set the maximum height to avoid taking up the entire viewport
+      overflow: 'none', // Enable vertical scrolling if needed
       backgroundColor: 'rgba(250, 229, 175, 1)',
       Zindex: 2,
     },
