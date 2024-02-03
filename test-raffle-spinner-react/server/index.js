@@ -10,7 +10,7 @@ const PORT = 3001;
 app.use(cors());
 
 // the id can be found by looking after /d/ in the sheet URL
-const spreadsheetId = '1GKyP_61jo1Btik3lX_qalejXb_0txDFv5dvhEJ20S24';
+const spreadsheetId = '1vBXnd9Z7slwU-mAfq_X_56UGrd1Fjy8-ATefa3JQeUo';
 
 // fetches the google sheet data from a specific range
 app.get('/api/get-google-sheet-data', async (req, res) => {
@@ -29,7 +29,7 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
     // gets the last row of Attendees that has data
     //const lastRow = sheets.data.sheets[0].data[0].rowData.length;
     // Specify the range you want to read
-    const range = `Attendees!D2:I203`; // Update with your desired range
+    const range = `Attendees!E2:I600`; // Update with your desired range
 
     // Actually gets the spreadsheet values after passing the spreadsheetId and the range of values
     const response = await sheets.spreadsheets.values.get({
@@ -60,7 +60,7 @@ app.get('/api/get-num-winners', async (req, res) => {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    const range = `Attendees!I2:I203`; // Update with desired range
+    const range = `Attendees!I2:I600`; // Update with desired range
 
     // queries from the spreadsheet
     const response = await sheets.spreadsheets.values.get({
@@ -149,9 +149,9 @@ app.post('/api/add-protection', async (req, res) => {
             addProtectedRange: {
               protectedRange: {
                 range: {
-                  sheetId: 1581120529, // Sheet ID, 0 for the first sheet
+                  sheetId: 2079318352, // Sheet ID, 0 for the first sheet
                   startRowIndex: 1,
-                  endRowIndex: 202, // Adjust as needed
+                  endRowIndex: 600, // Adjust as needed
                   startColumnIndex: 0,
                   endColumnIndex: 8, // Adjust as needed
                 },
