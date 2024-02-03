@@ -150,19 +150,24 @@ body {
   margin-top: 1vh;
 }
 
+/*modal*/
 .ReactModal__Co
 
 .modal {
   z-index: 10;
   align-items: center;
+  overflow:hidden;
 }
 
 .modal * {
   z-index: inherit;
 }
 
-/*modal*/
 .modal-content {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  flex-direction: row;
   background-color: #c5f3da;
   margin: 2vh;
   padding: 3%;
@@ -171,6 +176,7 @@ body {
   height: 100%;
   z-index: 2;
   text-align: center;
+  flex-wrap: wrap;
 }
 
 .winner {
@@ -179,6 +185,14 @@ body {
   max-width: 60%;
   height: 100%;
   margin: 0 auto;
+}
+
+.modal_logo {
+  max-width:20%
+}
+
+#modal_right {
+  transform: scaleX(-1);
 }
 
 .close {
@@ -195,9 +209,15 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+.ok {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+}
 
 .winButton {
-  margin-top: 5%;
+  display: block; /*change to block if it's not within a flex container*/
+  margin: auto ;
   align-self: center;
   background-color: #fffede;
   background-image: none;

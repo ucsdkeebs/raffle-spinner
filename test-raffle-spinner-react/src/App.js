@@ -226,8 +226,7 @@ function App() {
               <Slot key={number} value={slotValues[number]} slotNumber={number} />
             ))}
             {/* <Edge id="bottom"/> */}
-        </div>
-       
+        </div>       
         {/*Keep this in case it messes with formatting */}
         <div className="LowerRaffle">
         </div>
