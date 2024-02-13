@@ -1,4 +1,4 @@
-const serviceAccount = require('../src/secrets.json');
+const serviceAccount = require('../.env/secrets.json');
 const express = require('express');
 const { google } = require('googleapis');
 const cors = require('cors');
