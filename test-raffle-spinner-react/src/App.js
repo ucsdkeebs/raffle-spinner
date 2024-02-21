@@ -6,11 +6,10 @@ import Winscreen from './winscreen.jsx';
 import AnimationRenderer from './animation.jsx';
 import raffleFrame from './img/Raffle_Frame.png';
 
-function App() {
+import animationStatic from './img/Animation_Frames/kwibs_0000.png';
+import animation from './img/kwibs.gif';
 
-  const images =  require.context('./img/Animation_Frames', true);
-  const frames = images.keys().map(image => images(image));
-  const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
+function App() {
 
   // array to store raffle data
   const [raffle, setRaffle] = useState([]);
@@ -18,7 +17,6 @@ function App() {
   // the values that are displayed on the slot
   const [slotValues, setSlotValues] = useState(['.','.','.','.','.','.','.','.','.','.'])
   
-
   // whether or not the modal should be opened
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -130,6 +128,7 @@ function App() {
       const response = await fetch(backendUrl, {
         method: "POST"
       });
+      console.log(response);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -212,7 +211,12 @@ function App() {
     <div className="raffle">
 
         <div className ="Animation">
-            <AnimationRenderer onAnimate={handleAnimationClick} hoverFrameCount={32}/>
+          <AnimationRenderer
+              onAnimate={handleAnimationClick}
+              staticSrc={animationStatic}
+              gifSrc={animation}
+              animationDuration={9000} // Example: 5000 milliseconds for a 5-second GIF
+          />
         </div>
 
         <div className = "frame">
@@ -297,9 +301,9 @@ function shuffle(array) {
   return array;
 }
 
-function Edge({type}){
-  return (
-    <div id={type} className="edge"></div>
-  );
-}
+// function Edge({type}){
+//   return (
+//     <div id={type} className="edge"></div>
+//   );
+// }
 export default App;
