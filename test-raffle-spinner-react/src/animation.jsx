@@ -67,9 +67,12 @@ import { useState } from 'react';
 
 function AnimationRenderer({ onAnimate, staticSrc, gifSrc, animationDuration }) {
     const [imageSrc, setImageSrc] = useState(staticSrc);
+    const [isClickable, setIsClickable] = useState(true);
 
     const handleImageClick = () => {
-
+        if (!isClickable) return;
+        setIsClickable(false);
+        console.log('start: ' + isClickable);
         setImageSrc(gifSrc); // Switch to the GIF
 
         setTimeout(() =>{
@@ -81,7 +84,9 @@ function AnimationRenderer({ onAnimate, staticSrc, gifSrc, animationDuration }) 
         // Set a timeout to switch back to the static image after the GIF's duration
         setTimeout(() => {
             setImageSrc(staticSrc); // Switch back to the static image
+            console.log('end: ' + isClickable);
         }, animationDuration);
+        setIsClickable(true);        
     };
 
     return (
@@ -90,7 +95,7 @@ function AnimationRenderer({ onAnimate, staticSrc, gifSrc, animationDuration }) 
             src={imageSrc}
             alt="Animation"
             onClick={handleImageClick}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: isClickable ? 'pointer':'not-allowed' }}
         />
     );
 }

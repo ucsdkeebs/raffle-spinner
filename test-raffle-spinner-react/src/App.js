@@ -23,9 +23,6 @@ function App() {
   // the winner of the raffle
   const [winner, setWinner] = useState([]);
 
-  //disale button of the raffle
-  const [isButtonDisabled, setButtonDisabled] = useState(false);
-
   // index of the Winner sheet to be added to the list of winners
   const [currentWinIndex, setCurrentWinIndex] = useState(1);
 
@@ -150,7 +147,7 @@ function App() {
   }
 
   const rollNames = async (raffleNames) => {
-    console.log(raffleNames);
+    // console.log(raffleNames);
     // picks a random index to start the spin
     var start = Math.floor(Math.random() * raffleNames.length); 
     // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
@@ -162,24 +159,28 @@ function App() {
         delay = (0.05 + (0.02 * (i - (start + spins - 40)) / 5)); //slows down the spin by 0.004 seconds.
       }
             
-      await gsap.to(".slot", { // animates a slide downward
-        duration: delay, // Animation duration in seconds
-        y: "+=4.54vw", // Move each element down by one slot
-        ease: "power4.out", // Easing function 
-        // after roll completed, resets the divs with new values, i.e. slot2 goes back to its original place, but with the value of the old slot3 so the roll is complete
-        onComplete: () => {
-          const shiftedSlots = [];
-          for (let j = slotValues.length; j > 0; j--) {
-            //console.log(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
-            let index = (i + j - (slotValues.length / 2));
-            shiftedSlots.push(raffleNames[(index >= 0 ? index : raffleNames.length + index) % raffleNames.length][0]);
+      await new Promise ( resolve => { 
+        gsap.to(".slot", { // animates a slide downward
+          duration: delay, // Animation duration in seconds
+          y: "+=4.54vw", // Move each element down by one slot
+          ease: "power4.out", // Easing function 
+          // after roll completed, resets the divs with new values, i.e. slot2 goes back to its original place, but with the value of the old slot3 so the roll is complete
+          onComplete: () => {
+            const shiftedSlots = [];
+            for (let j = slotValues.length; j > 0; j--) {
+              //console.log(parsedData[(i + j - (slotValues.length / 2)) % parsedData.length][0]);
+              let index = (i + j - (slotValues.length / 2));
+              shiftedSlots.push(raffleNames[(index >= 0 ? index : raffleNames.length + index) % raffleNames.length][0]);
+            }
+            setSlotValues(shiftedSlots);
+            gsap.set(".slot", { //set resets the slots to their original place
+              y: "-=4.54vw"
+            })
+            resolve();
           }
-          setSlotValues(shiftedSlots);
-          gsap.set(".slot", { //set resets the slots to their original place
-            y: "-=4.54vw"
-          })
-        }
+        });
       });
+      gsap.killTweensOf('.slot');
     }
 
     // gets winning index and sets the winner to be the string at that index
@@ -194,17 +195,16 @@ function App() {
   }
 
   const handleAnimationClick = async () => {
-    setButtonDisabled(true);
-    const protectedId = await addProtectedData();
+    //const protectedId = await addProtectedData();
     const updatedRaffle = await fetchData();
     console.log(updatedRaffle);
+    console.log('Updated Raffle:')
     
     await rollNames(updatedRaffle);
     await sleep(1000);
   
     openModal();
-    updateProtectData(protectedId);
-    setButtonDisabled(false);
+    //updateProtectData(protectedId);
   };  
 
   return (
