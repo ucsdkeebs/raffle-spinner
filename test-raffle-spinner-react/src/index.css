@@ -62,23 +62,6 @@ body {
   color: #f0f0f0; */
 }
 
-/* #slot1 {
-  clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
-  background-color: #f0f0f0;
-  border-color: #f0f0f0;
-  border-bottom: #471E20;
-  color: #f0f0f0;
-}
-
-#slot8 {
-  clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
-  background-color: #f0f0f0;
-  border-top: #471E20;
-  border-color: #f0f0f0;
-  border-bottom: #471E20;
-  color: #f0f0f0;;
-} */
-
 #slot9 {
   clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
   /* background-color: #f0f0f0; */
@@ -254,4 +237,30 @@ body {
 
 .winButton:focus {
   box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+.selectorWrapper {
+  padding: 20px;
+  text-align: center;
+}
+
+.selectorWrapper::before {
+  content: "";
+  display: block;
+  margin: auto;
+  width: calc(100% - 40px); /* Adjust based on the total padding */
+  border-top: 2px solid black; /* Example border style */
+}
+
+.select {
+  padding: 10px;
+  font-size: 16px;
+  display: inline-block; /* Aligns the border to the selector width */
+  margin: 0; /* Removes default margin to align border */
+}
+
+.upperSection {
+  background-color: #86dccb;
+  padding: 20px;
+  text-align: center;
 }

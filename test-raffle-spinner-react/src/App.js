@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 import Winscreen from './winscreen.jsx';
 import AnimationRenderer from './animation.jsx';
 import raffleFrame from './img/Raffle_Frame.png';
-
+import RaffleSlot from './raffleslot.jsx';
 import animationStatic from './img/Animation_Frames/kwibs_0000.png';
 import animation from './img/kwibs.gif';
 
@@ -26,6 +26,9 @@ function App() {
   // index of the Winner sheet to be added to the list of winners
   const [currentWinIndex, setCurrentWinIndex] = useState(1);
 
+  // 
+  const [raffleSlot, setRaffleSlot] = useState("Section 1");
+
   // opens Modal on win by setting state to true
   const openModal = () => {
     setModalIsOpen(true);
@@ -41,7 +44,7 @@ function App() {
     console.log('no dependencies');
     fetchData();
     fetchNumWinner();
-  }, []);
+  }, [raffleSlot]);
 
   // sets the state of raffle array
   useEffect(() => {
@@ -129,6 +132,23 @@ function App() {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+  }
+
+  // goes through the data from the spreadsheet to properly run the raffle
+  function parseData(data) {
+    // only want to keep E(1) and F(2) which is name and email
+    // also want to add extra tickets G(3)
+    const output = [];
+    for (let i = 0; i < data.length; i++) {
+      // checks if the entry is both in the venue and has yet to win
+      if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE") && (data[i][6] === raffleSlot.charAt(raffleSlot.length - 1))) {
+        // accounts for any extra tickets that the entry has
+        for (let j = 0; j < parseInt(data[i][3]) + 1; j++) {
+          output.push([data[i][1], data[i][2], data[i][0], parseInt(i) + 2]);
+        }
+      }
+    }
+    return shuffle(output);
   }
 
   const updateData = async () => {
@@ -229,7 +249,12 @@ function App() {
             ))}
             {/* <Edge id="bottom"/> */}
         </div>       
-        {/*Keep this in case it messes with formatting */}
+        <div className="test">
+          <RaffleSlot
+            raffleSlot={raffleSlot}
+            setRaffleSlot={setRaffleSlot}
+          />
+        </div>
         <div className="LowerRaffle">
         </div>
 
@@ -249,23 +274,6 @@ function App() {
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// goes through the data from the spreadsheet to properly run the raffle
-function parseData(data) {
-  // only want to keep E(1) and F(2) which is name and email
-  // also want to add extra tickets G(3)
-  const output = [];
-  for (let i = 0; i < data.length; i++) {
-    // checks if the entry is both in the venue and has yet to win
-    if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE")) {
-      // accounts for any extra tickets that the entry has
-      for (let j = 0; j < parseInt(data[i][3]) + 1; j++) {
-        output.push([data[i][1], data[i][2], data[i][0], parseInt(i) + 2]);
-      }
-    }
-  }
-  return shuffle(output);
 }
 
 function Slot({value, slotNumber}){
@@ -301,9 +309,4 @@ function shuffle(array) {
   return array;
 }
 
-// function Edge({type}){
-//   return (
-//     <div id={type} className="edge"></div>
-//   );
-// }
 export default App;

@@ -10,7 +10,7 @@ const PORT = 3001;
 app.use(cors());
 
 // the id can be found by looking after /d/ in the sheet URL
-const spreadsheetId = '18beUG4b0cNLogO8NFJPVvbB4kdFJPNSi7Wlc4nzBiPY';
+const spreadsheetId = '1Lj3I74Hey4GRZXofn7w_k18RvYyuytvLBJKf7EHSVcQ';
 
 // fetches the google sheet data from a specific range
 app.get('/api/get-google-sheet-data', async (req, res) => {
@@ -29,7 +29,7 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
     // gets the last row of Attendees that has data
     //const lastRow = sheets.data.sheets[0].data[0].rowData.length;
     // Specify the range you want to read
-    const range = `Attendees!D2:I600`; // Update with your desired range
+    const range = `Attendees!D2:J600`; // Update with your desired range
 
     // Actually gets the spreadsheet values after passing the spreadsheetId and the range of values
     const response = await sheets.spreadsheets.values.get({
