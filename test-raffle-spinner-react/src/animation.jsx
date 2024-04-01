@@ -77,7 +77,7 @@ function AnimationRenderer({ onAnimate, staticSrc, gifSrc, animationDuration }) 
 
         setTimeout(() =>{
             onAnimate();
-        }, 4750)
+        }, 5250)
 
         // onAnimate(); // Call any additional functions
 

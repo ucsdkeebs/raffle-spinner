@@ -26,7 +26,7 @@ body {
 /* raffle body  */
 .raffle {
   display: grid;
-  grid-template-columns: 40vw 60vw;
+  grid-template-columns: 35vw 65vw;
   grid-template-rows: 50vh 50vh;
   justify-content: center;
   align-items: center;
@@ -63,19 +63,14 @@ body {
 }
 
 #slot0 {
-  clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%);
-  /* background-color: #f0f0f0;
-  border-color: #f0f0f0;
-  color: #f0f0f0; */
+  clip-path: polygon(0 70%, 0 100%, 100% 100%, 100% 70%);
 }
 
 #slot9 {
   clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
-  /* background-color: #f0f0f0; */
   border-color: #fffede;
   color: #fffede;
-  border-top: #471E20;
-  border-top-width: 6px;
+  border-top: 3px solid #471E20;
 }
 /* edges */
 .edge {
@@ -136,14 +131,6 @@ body {
   border-color: black;
   border-radius: 10px;
 }
-
-/* button (WILL PROB REMOVE SOON)*/
-.LowerRaffle {
-  margin-top: 1vh;
-}
-
-/*modal*/
-.ReactModal__Co
 
 .modal {
   z-index: 10;
