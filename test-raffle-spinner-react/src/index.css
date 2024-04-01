@@ -267,6 +267,7 @@ body {
   border: 1px solid #cccccc; 
   font-size: 2rem;
   border-radius: 1vw;
+  border-color: #ffb980;
   /*width: calc(100% - 22px); */
 }
 
