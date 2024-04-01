@@ -25,22 +25,29 @@ body {
 
 /* raffle body  */
 .raffle {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 40vw 60vw;
+  grid-template-rows: 50vh 50vh;
   justify-content: center;
   align-items: center;
-  float:left;
-  max-width:100%;
+  text-align: center;
+  position: relative;
+}
+
+.grid-item {
+  position: relative; /* If centering within a specific item */
 }
 
 .raffleBody {
+  grid-column: 2;
+  grid-row: 1 / -1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  width: 23.5vw; 
-  z-index: -1;
+  /*position: absolute;
+  width: 23.5vw; */
+  z-index: -1
 }
 
 /* Slots*/
@@ -89,13 +96,15 @@ body {
 
 /* overlay  */
 .frame {
+  grid-column: 2;
+  grid-row: 1 / -1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: static;
+  /*position: static;*/
   flex: 1;
-  max-width: 45%;
+  /*max-width: 45%;*/
   /*background-color: #f0f0f0;*/
 }
 
@@ -103,7 +112,7 @@ body {
   width: 40vw; 
   height: auto; /* This ensures the image height scales with its width */
   object-fit: cover; /* This ensures the image maintains its aspect ratio */
-  position: static;
+  /*position: static;*/
 }
 
 /*animation*/
@@ -237,6 +246,11 @@ body {
 
 .winButton:focus {
   box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+.raffleSlotSign {
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .rectangleWrapper {

@@ -249,7 +249,7 @@ function App() {
             ))}
             {/* <Edge id="bottom"/> */}
         </div>       
-        <div className="test">
+        <div className="raffleSlotSign">
           <RaffleSlot
             raffleSlot={raffleSlot}
             setRaffleSlot={setRaffleSlot}
