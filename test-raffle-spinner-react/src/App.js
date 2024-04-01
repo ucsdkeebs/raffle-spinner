@@ -27,7 +27,7 @@ function App() {
   const [currentWinIndex, setCurrentWinIndex] = useState(1);
 
   // 
-  const [raffleSlot, setRaffleSlot] = useState("Section 1");
+  const [raffleSlot, setRaffleSlot] = useState("1");
 
   // opens Modal on win by setting state to true
   const openModal = () => {
@@ -141,7 +141,7 @@ function App() {
     const output = [];
     for (let i = 0; i < data.length; i++) {
       // checks if the entry is both in the venue and has yet to win
-      if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE") && (data[i][6] === raffleSlot.charAt(raffleSlot.length - 1))) {
+      if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE") && (data[i][6] === raffleSlot)) {
         // accounts for any extra tickets that the entry has
         for (let j = 0; j < parseInt(data[i][3]) + 1; j++) {
           output.push([data[i][1], data[i][2], data[i][0], parseInt(i) + 2]);

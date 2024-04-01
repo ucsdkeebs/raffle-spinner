@@ -39,14 +39,14 @@ body {
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 23.5vw; /* You may adjust this based on your layout */
+  width: 23.5vw; 
   z-index: -1;
 }
 
 /* Slots*/
 .slot {
   width: 22.7vw;
-  height: calc(22.7vw / 5); /* Replace [Your Aspect Ratio] with the aspect ratio of your slot */
+  height: calc(22.7vw / 5);
   border: 3px solid #471E20;
   display: flex;
   justify-content: center;
@@ -239,28 +239,42 @@ body {
   box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 }
 
-.selectorWrapper {
-  padding: 20px;
+.rectangleWrapper {
+  background-color: #86dccb; 
+  padding: 1.5vw; 
   text-align: center;
+  display: inline-block;
+  margin-top: 1vw; 
+  border-radius: 1vw;
 }
 
-.selectorWrapper::before {
-  content: "";
-  display: block;
-  margin: auto;
-  width: calc(100% - 40px); /* Adjust based on the total padding */
-  border-top: 2px solid black; /* Example border style */
+.line {
+  height: 2px;
+  background-color: black; 
+}
+
+.emptyLine {
+  height: 2rem; 
+  background-color: #ffb980; 
 }
 
 .select {
-  padding: 10px;
-  font-size: 16px;
-  display: inline-block; /* Aligns the border to the selector width */
-  margin: 0; /* Removes default margin to align border */
+  -webkit-appearance: none;
+  -moz-appearance: none; 
+  appearance: none;
+  background-color: #ffb980; 
+  padding: 0.5vw;
+  border: 1px solid #cccccc; 
+  font-size: 2rem;
+  border-radius: 1vw;
+  /*width: calc(100% - 22px); */
 }
 
-.upperSection {
-  background-color: #86dccb;
-  padding: 20px;
-  text-align: center;
+.selectWrapper {
+  background-color: #ffb980;
+}
+
+#titleTag {
+  font-size: 2.25rem;
+  padding-bottom: 1.5vw;
 }
