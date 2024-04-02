@@ -26,7 +26,7 @@ body {
 /* raffle body  */
 .raffle {
   display: grid;
-  grid-template-columns: 35vw 65vw;
+  grid-template-columns: 40vw 60vw;
   grid-template-rows: 50vh 50vh;
   justify-content: center;
   align-items: center;
@@ -52,8 +52,8 @@ body {
 
 /* Slots*/
 .slot {
-  width: 22.7vw;
-  height: calc(22.7vw / 5);
+  width: 20vw;
+  height: calc(18vw / 5);
   border: 3px solid #471E20;
   display: flex;
   justify-content: center;
@@ -67,7 +67,7 @@ body {
 }
 
 #slot9 {
-  clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
+  clip-path: polygon(0 0, 0 70%, 100% 70%, 100% 0);
   border-color: #fffede;
   color: #fffede;
   border-top: 3px solid #471E20;
@@ -104,7 +104,7 @@ body {
 }
 
 #slotframe {
-  width: 40vw; 
+  width: 32vw; 
   height: auto; /* This ensures the image height scales with its width */
   object-fit: cover; /* This ensures the image maintains its aspect ratio */
   /*position: static;*/
@@ -118,7 +118,7 @@ body {
   align-items: left;
   position: absolute;
   flex: 1;
-  margin-top: 55vh;
+  margin-top: 45vh;
 }
 
 #animation_frame {

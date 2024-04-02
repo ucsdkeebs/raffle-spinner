@@ -182,7 +182,7 @@ function App() {
       await new Promise ( resolve => { 
         gsap.to(".slot", { // animates a slide downward
           duration: delay, // Animation duration in seconds
-          y: "+=4.54vw", // Move each element down by one slot
+          y: "+=4vw", // Move each element down by one slot
           ease: "power4.out", // Easing function 
           // after roll completed, resets the divs with new values, i.e. slot2 goes back to its original place, but with the value of the old slot3 so the roll is complete
           onComplete: () => {
@@ -194,7 +194,7 @@ function App() {
             }
             setSlotValues(shiftedSlots);
             gsap.set(".slot", { //set resets the slots to their original place
-              y: "-=4.54vw"
+              y: "-=4vw"
             })
             resolve();
           }
