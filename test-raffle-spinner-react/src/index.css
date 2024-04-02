@@ -1,5 +1,6 @@
 html * {
-  font-family: Arial, sans-serif !important; /* !important means that font-family can't be overwritten*/
+  /* font-family: Arial, sans-serif !important; !important means that font-family can't be overwritten */
+  font-family: NikkyouSans;
 }
 
 html {
@@ -14,97 +15,155 @@ body {
   align-items: center;
   height: 100vh;
   background-color: #f0f0f0;
+  background-image: url("./img/raffle_bg.png");
 }
 
+@font-face {
+  font-family: NikkyouSans;
+  src: url(NikkyouSans-mLKax.ttf);
+}
+
+/* raffle body  */
 .raffle {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 40vw 60vw;
+  grid-template-rows: 50vh 50vh;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.grid-item {
+  position: relative; /* If centering within a specific item */
 }
 
 .raffleBody {
+  grid-column: 2;
+  grid-row: 1 / -1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /*position: absolute;
+  width: 23.5vw; */
+  z-index: -1
 }
 
+/* Slots*/
 .slot {
-  width:20vw;
-  height:8vh;
-  border: 2px solid #333;
+  width: 20vw;
+  height: calc(18vw / 5);
+  border: 3px solid #471E20;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-}
-
-.triangle {
-  position: absolute;
-  top: 48vh;
-  left: 62%;
-  transform: translate(-50%, -50%) rotate(270deg); /* Rotate the arrow */
-  width: 0;
-  height: 0;
-  border-left: 4vh solid transparent;
-  border-right: 4vh solid transparent;
-  border-bottom: 12vh solid #fbff00; /* Color of the arrow, match Slot background */
-}
-
-.edge {
-  width: 21vw;
-  height: 10vh;
-  background-color: gray;
-}
-
-#refreshForm {
-  position: absolute;
-  top: 38vh;
-  right: 62%;
-}
-
-#top {
-  margin-bottom: -12vh;
-  z-index: 1;
-}
-
-#bottom {
-  margin-top: -4vh;
-  z-index: 1;
+  background-color: #fffede;
 }
 
 #slot0 {
-  clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%);
+  clip-path: polygon(0 70%, 0 100%, 100% 100%, 100% 70%);
 }
 
 #slot9 {
-  clip-path: polygon(0 0, 0 60%, 100% 60%, 100% 0);
+  clip-path: polygon(0 0, 0 70%, 100% 70%, 100% 0);
+  border-color: #fffede;
+  color: #fffede;
+  border-top: 3px solid #471E20;
+}
+
+/* overlay  */
+.frame {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /*position: static;*/
+  flex: 1;
+  /*max-width: 45%;*/
+  /*background-color: #f0f0f0;*/
+}
+
+#slotframe {
+  width: 32vw; 
+  height: auto; /* This ensures the image height scales with its width */
+  object-fit: cover; /* This ensures the image maintains its aspect ratio */
+  /*position: static;*/
+}
+
+/*animation*/
+.Animation {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: left;
+  position: absolute;
+  flex: 1;
+  margin-top: 45vh;
+}
+
+#animation_frame {
+  max-width: 35%;
+  max-height: auto;
+  /*position: relative;*/
+}
+
+.Animation:hover {
+  border-color: black;
+  border-radius: 10px;
+}
+
+.modal {
+  z-index: 10;
+  align-items: center;
+  overflow:hidden;
+}
+
+.modal * {
+  z-index: inherit;
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 4vh;
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  flex-direction: row;
+  background-color: #c5f3da;
+  margin: 2vh;
+  padding: 3%;
   border: 1px solid #888;
-  max-width: 90%;
-}
-
-.LowerRaffle {
-  margin-top: 4vh;
+  width: 90%;
+  height: 100%;
+  z-index: 2;
+  text-align: center;
+  flex-wrap: wrap;
 }
 
 .winner {
   text-align: center;
   font-size: 2.5rem;
+  max-width: 60%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.modal_logo {
+  max-width:20%
+}
+
+#modal_right {
+  transform: scaleX(-1);
 }
 
 .close {
-  color: #aaa;
+  color: #fffede;
   float: right;
   font-size: 1.5rem;
   font-weight: bold;
-  z-index: 2;
+  font-family: Arial;
 }
 
 .close:hover,
@@ -112,4 +171,97 @@ body {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+.ok {
+  display:flex;
+  align-items:center;
+  justify-content: center;
+}
+
+.winButton {
+  display: block; /*change to block if it's not within a flex container*/
+  margin: auto ;
+  align-self: center;
+  background-color: #fffede;
+  background-image: none;
+  background-position: 0 90%;
+  background-repeat: repeat no-repeat;
+  background-size: 4px 3px;
+  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+  box-sizing: border-box;
+  color: #41403e;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 23px;
+  outline: none;
+  padding: .75rem;
+  text-decoration: none;
+  transition: all 235ms ease-in-out;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.winButton:hover {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+}
+
+.winButton:focus {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+.raffleSlotSign {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.rectangleWrapper {
+  background-color: #86dccb; 
+  padding: 1.5vw; 
+  text-align: center;
+  display: inline-block;
+  margin-top: 1vw; 
+  border-radius: 1vw;
+  width: 20vw;
+}
+
+.line {
+  height: 2px;
+  background-color: black; 
+}
+
+.emptyLine {
+  height: 2rem; 
+  background-color: #fffede; 
+}
+
+.select {
+  -webkit-appearance: none;
+  -moz-appearance: none; 
+  appearance: none;
+  background-color: #fffede; 
+  padding: 0.5vw;
+  border: 1px solid #cccccc; 
+  font-size: 2rem;
+  border-radius: 1vw;
+  border-color: #fffede;
+  /*width: calc(100% - 22px); */
+}
+
+.selectWrapper {
+  background-color: #fffede;
+}
+
+#titleTag {
+  font-size: 2.25rem;
+  padding-bottom: 1.5vw;
 }
