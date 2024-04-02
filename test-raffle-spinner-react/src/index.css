@@ -72,22 +72,6 @@ body {
   color: #fffede;
   border-top: 3px solid #471E20;
 }
-/* edges */
-.edge {
-  width: 21vw;
-  height: 10vh;
-  background-color: #f0f0f0;
-}
-
-#top {
-  margin-bottom: -12vh;
-  background-color: #f0f0f0;
-}
-
-#bottom {
-  margin-top: -4vh;
-  background-color: #f0f0f0;
-}
 
 /* overlay  */
 .frame {
@@ -247,6 +231,7 @@ body {
   display: inline-block;
   margin-top: 1vw; 
   border-radius: 1vw;
+  width: 20vw;
 }
 
 .line {
@@ -256,24 +241,24 @@ body {
 
 .emptyLine {
   height: 2rem; 
-  background-color: #ffb980; 
+  background-color: #fffede; 
 }
 
 .select {
   -webkit-appearance: none;
   -moz-appearance: none; 
   appearance: none;
-  background-color: #ffb980; 
+  background-color: #fffede; 
   padding: 0.5vw;
   border: 1px solid #cccccc; 
   font-size: 2rem;
   border-radius: 1vw;
-  border-color: #ffb980;
+  border-color: #fffede;
   /*width: calc(100% - 22px); */
 }
 
 .selectWrapper {
-  background-color: #ffb980;
+  background-color: #fffede;
 }
 
 #titleTag {
