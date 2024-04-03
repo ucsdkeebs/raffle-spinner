@@ -16,6 +16,7 @@ const RaffleSlot = ({ raffleSlot, setRaffleSlot }) => {
           <option value="2">Section 2</option>
           <option value="3">Section 3</option>
           <option value="4">Section 4</option>
+          <option value="All">Section 5</option>
         </select>
       </div>
       <div className="line"></div>
