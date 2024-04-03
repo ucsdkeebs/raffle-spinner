@@ -204,9 +204,5 @@ app.post('/api/remove-protection/:sheetID', async (req, res) => {
     console.error('Error unprotecting range:', error.message);
   }
 });
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
   
 module.exports = app;
