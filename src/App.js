@@ -73,7 +73,7 @@ function App() {
    */
   const fetchData = async () => {
     //console.log('fetch test!');
-    const backendUrl = 'http://localhost:3001/api/get-google-sheet-data';
+    const backendUrl = '/api/get-google-sheet-data';
 
     try {
       const response = await fetch(backendUrl);
@@ -88,7 +88,7 @@ function App() {
 
   const fetchNumWinner = async () => {
     // creates the api query with the relevant information
-    const backendUrl = `http://localhost:3001/api/get-num-winners`;
+    const backendUrl = `/api/get-num-winners`;
 
     try {
       const response = await fetch(backendUrl);
@@ -107,7 +107,7 @@ function App() {
 
   const addProtectedData = async () => {
     //console.log('protecting data');
-    const backendUrl = 'http://localhost:3001/api/add-protection';
+    const backendUrl = '/api/add-protection';
 
     try {
       const response = await fetch(backendUrl,{
@@ -122,7 +122,7 @@ function App() {
 
   const updateProtectData = async (dataProtected) => {
     //console.log(`unprotecting Data: ${dataProtected}`);
-    const backendUrl = `http://localhost:3001/api/remove-protection/${dataProtected}`;
+    const backendUrl = `/api/remove-protection/${dataProtected}`;
 
     try {
       const response = await fetch(backendUrl, {
@@ -153,7 +153,7 @@ function App() {
 
   const updateData = async () => {
     // creates the api query with the relevant information
-    const backendUrl = `http://localhost:3001/api/add-winner/${winner[3]}/${currentWinIndex}/${winner[0]}/${winner[1]}/${winner[2]}`;
+    const backendUrl = `/api/add-winner/${winner[3]}/${currentWinIndex}/${winner[0]}/${winner[1]}/${winner[2]}`;
 
     try {
       const response = await fetch(backendUrl,{
