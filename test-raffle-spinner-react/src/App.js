@@ -73,7 +73,7 @@ function App() {
    */
   const fetchData = async () => {
     //console.log('fetch test!');
-    const backendUrl = '/api/get-google-sheet-data';
+    const backendUrl = 'http://localhost:3001/api/get-google-sheet-data';
 
     try {
       const response = await fetch(backendUrl);
@@ -88,7 +88,7 @@ function App() {
 
   const fetchNumWinner = async () => {
     // creates the api query with the relevant information
-    const backendUrl = '/api/get-num-winners';
+    const backendUrl = `http://localhost:3001/api/get-num-winners`;
 
     try {
       const response = await fetch(backendUrl);
@@ -105,7 +105,6 @@ function App() {
     }
   }
 
-  /*
   const addProtectedData = async () => {
     //console.log('protecting data');
     const backendUrl = 'http://localhost:3001/api/add-protection';
@@ -134,7 +133,6 @@ function App() {
       console.error('Error fetching data:', error);
     }
   }
-  */
 
   // goes through the data from the spreadsheet to properly run the raffle
   function parseData(data) {
@@ -155,7 +153,7 @@ function App() {
 
   const updateData = async () => {
     // creates the api query with the relevant information
-    const backendUrl = `/api/add-winner/${winner[3]}/${currentWinIndex}/${winner[0]}/${winner[1]}/${winner[2]}`;
+    const backendUrl = `http://localhost:3001/api/add-winner/${winner[3]}/${currentWinIndex}/${winner[0]}/${winner[1]}/${winner[2]}`;
 
     try {
       const response = await fetch(backendUrl,{
