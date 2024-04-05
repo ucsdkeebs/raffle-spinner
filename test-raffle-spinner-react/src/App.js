@@ -204,7 +204,7 @@ function App() {
     }
 
     // gets winning index and sets the winner to be the string at that index
-    let winIndex = (start + spins) % raffleNames.length;
+    let winIndex = (start + spins) % raffleNames.length + 1;
     setWinner(raffleNames[winIndex]);
   }
 
