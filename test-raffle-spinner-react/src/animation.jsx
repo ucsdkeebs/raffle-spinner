@@ -77,7 +77,7 @@ function AnimationRenderer({ onAnimate, staticSrc, gifSrc, animationDuration }) 
 
         setTimeout(() =>{
             onAnimate();
-        }, 5250)
+        }, 3250) // speedup went from 25/3 frames per second to 6 frames per second, so it is a 25/18 speedup
 
         // onAnimate(); // Call any additional functions
 

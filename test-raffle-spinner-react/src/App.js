@@ -235,20 +235,18 @@ function App() {
               onAnimate={handleAnimationClick}
               staticSrc={animationStatic}
               gifSrc={animation}
-              animationDuration={9000} // Example: 5000 milliseconds for a 5-second GIF
+              animationDuration={6480} // Example: 5000 milliseconds for a 5-second GIF
           />
         </div>
 
         <div className = "frame">
             <img id="slotframe" src={raffleFrame} alt="Raffle Frame" />
+            <div className="raffleBody">
+              {numbers.map((number) => (
+                <Slot key={number} value={slotValues[number]} slotNumber={number} />
+              ))}
+          </div>       
         </div> 
-        <div className="raffleBody">
-            {/* <Edge id="top"/> */}
-            {numbers.map((number) => (
-              <Slot key={number} value={slotValues[number]} slotNumber={number} />
-            ))}
-            {/* <Edge id="bottom"/> */}
-        </div>       
         <div className="raffleSlotSign">
           <RaffleSlot
             raffleSlot={raffleSlot}
