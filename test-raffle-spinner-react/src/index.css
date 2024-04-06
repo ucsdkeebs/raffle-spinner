@@ -46,13 +46,14 @@ body {
   justify-content: center;
   align-items: center;
   z-index: -1;
-  width: 32vw; 
+  width: 25vw; 
   height: auto;
+  background-color: #fffede;
 }
 
 /* Slots*/
 .slot {
-  width: 25vw;
+  width: 100%;
   height: 4vw;
   border: 3px solid #471E20;
   display: flex;
@@ -63,7 +64,7 @@ body {
 }
 
 /* #slot0 {
-  clip-path: polygon(0 100%, 0 100%, 100% 100%, 100% 100%);
+  clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 50%);
 } */
 
 #slot9 {
@@ -84,7 +85,7 @@ body {
   position: absolute;
   flex: 1;
   bottom:0;
-  left: 20%;
+  right: 14%;
   /*max-width: 45%;*/
   /*background-color: #f0f0f0;*/
 }
