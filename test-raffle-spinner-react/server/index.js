@@ -29,7 +29,7 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
     // gets the last row of Attendees that has data
     //const lastRow = sheets.data.sheets[0].data[0].rowData.length;
     // Specify the range you want to read
-    const range = `Attendees!D2:J600`; // Update with your desired range
+    const range = `Attendees!D2:J1800`; // Update with your desired range
 
     // Actually gets the spreadsheet values after passing the spreadsheetId and the range of values
     const response = await sheets.spreadsheets.values.get({
@@ -60,7 +60,7 @@ app.get('/api/get-num-winners', async (req, res) => {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    const range = `Attendees!I2:I600`; // Update with desired range
+    const range = `Attendees!I2:I1800`; // Update with desired range
 
     // queries from the spreadsheet
     const response = await sheets.spreadsheets.values.get({
@@ -151,7 +151,7 @@ app.post('/api/add-protection', async (req, res) => {
                 range: {
                   sheetId: 1581120529, // Sheet ID, 0 for the first sheet
                   startRowIndex: 1,
-                  endRowIndex: 600, // Adjust as needed
+                  endRowIndex: 1800, // Adjust as needed
                   startColumnIndex: 0,
                   endColumnIndex: 7, // Adjust as needed
                 },
