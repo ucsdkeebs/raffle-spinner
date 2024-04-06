@@ -260,7 +260,10 @@ body {
   border-radius: 1vw;
   border-color: #fffede;
   text-align: center;
-  /*width: calc(100% - 22px); */
+}
+
+.select:disabled {
+  color: black;
 }
 
 .selectWrapper {

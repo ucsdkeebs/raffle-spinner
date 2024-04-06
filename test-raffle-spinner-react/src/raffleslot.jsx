@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RaffleSlot = ({ raffleSlot, setRaffleSlot }) => {
+const RaffleSlot = ({ raffleSlot, setRaffleSlot, isDisabled }) => {
   return(
     <div className="rectangleWrapper">
       <div id='titleTag'>Now Showing:</div>
@@ -11,6 +11,7 @@ const RaffleSlot = ({ raffleSlot, setRaffleSlot }) => {
           value={raffleSlot}
           onChange={(e) => setRaffleSlot(e.target.value)}
           className="select"
+          disabled={isDisabled}
         >
           <option value="1">Section 1</option>
           <option value="2">Section 2</option>
