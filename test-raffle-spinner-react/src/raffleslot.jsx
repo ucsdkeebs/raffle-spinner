@@ -13,10 +13,10 @@ const RaffleSlot = ({ raffleSlot, setRaffleSlot, isDisabled }) => {
           className="select"
           disabled={isDisabled}
         >
-          <option value="1">Section 1</option>
-          <option value="2">Section 2</option>
-          <option value="3">Section 3</option>
-          <option value="4">Section 4</option>
+          <option value="I">Raffle Slot I</option>
+          <option value="II">Raffle Slot II</option>
+          <option value="III">Raffle Slot III</option>
+          <option value="IV">Raffle Slot IV</option>
           <option value="all">All Sections</option>
         </select>
       </div>

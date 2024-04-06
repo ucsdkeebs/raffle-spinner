@@ -29,7 +29,7 @@ function App() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   // which slot of the raffle is being spun
-  const [raffleSlot, setRaffleSlot] = useState("1");
+  const [raffleSlot, setRaffleSlot] = useState("I");
 
   // opens Modal on win by setting state to true
   const openModal = () => {
