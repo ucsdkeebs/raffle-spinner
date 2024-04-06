@@ -82,10 +82,15 @@ function AnimationRenderer({ onAnimate, staticSrc, gifSrc, animationDuration, is
 
         // Set a timeout to switch back to the static image after the GIF's duration
         setTimeout(() => {
-            setIsButtonDisabled(false);
+            // setIsButtonDisabled(false); 
             setImageSrc(staticSrc); // Switch back to the static image
             console.log('end: ' + isButtonDisabled);
         }, animationDuration);
+
+        setTimeout(() => {
+            setIsButtonDisabled(false);
+        }, 15000);
+        
                 
     };
 
