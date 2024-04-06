@@ -26,7 +26,9 @@ function App() {
   // index of the Winner sheet to be added to the list of winners
   const [currentWinIndex, setCurrentWinIndex] = useState(1);
 
-  // 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  // which slot of the raffle is being spun
   const [raffleSlot, setRaffleSlot] = useState("1");
 
   // opens Modal on win by setting state to true
@@ -216,6 +218,7 @@ function App() {
 
   const handleAnimationClick = async () => {
     //const protectedId = await addProtectedData();
+    setIsButtonDisabled(true);
     const updatedRaffle = await fetchData();
     console.log(updatedRaffle);
     console.log('Updated Raffle:')
@@ -223,6 +226,7 @@ function App() {
     await rollNames(updatedRaffle);
     await sleep(1000);
   
+    setIsButtonDisabled(false);
     openModal();
     //updateProtectData(protectedId);
   };  
@@ -236,6 +240,8 @@ function App() {
               staticSrc={animationStatic}
               gifSrc={animation}
               animationDuration={6480} // Example: 5000 milliseconds for a 5-second GIF
+              isButtonDisabled={isButtonDisabled}
+              setIsButtonDisabled={setIsButtonDisabled}
           />
         </div>
 
@@ -251,6 +257,7 @@ function App() {
           <RaffleSlot
             raffleSlot={raffleSlot}
             setRaffleSlot={setRaffleSlot}
+            isDisabled={isButtonDisabled}
           />
         </div>
         <div className="LowerRaffle">
