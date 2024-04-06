@@ -26,7 +26,9 @@ function App() {
   // index of the Winner sheet to be added to the list of winners
   const [currentWinIndex, setCurrentWinIndex] = useState(1);
 
-  // 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  // which slot of the raffle is being spun
   const [raffleSlot, setRaffleSlot] = useState("1");
 
   // opens Modal on win by setting state to true
@@ -204,7 +206,7 @@ function App() {
     }
 
     // gets winning index and sets the winner to be the string at that index
-    let winIndex = (start + spins) % raffleNames.length;
+    let winIndex = (start + spins) % raffleNames.length + 1;
     setWinner(raffleNames[winIndex]);
   }
 
@@ -216,6 +218,7 @@ function App() {
 
   const handleAnimationClick = async () => {
     //const protectedId = await addProtectedData();
+    setIsButtonDisabled(true);
     const updatedRaffle = await fetchData();
     console.log(updatedRaffle);
     console.log('Updated Raffle:')
@@ -223,6 +226,7 @@ function App() {
     await rollNames(updatedRaffle);
     await sleep(1000);
   
+    setIsButtonDisabled(false);
     openModal();
     //updateProtectData(protectedId);
   };  
@@ -235,24 +239,25 @@ function App() {
               onAnimate={handleAnimationClick}
               staticSrc={animationStatic}
               gifSrc={animation}
-              animationDuration={9000} // Example: 5000 milliseconds for a 5-second GIF
+              animationDuration={6480} // Example: 5000 milliseconds for a 5-second GIF
+              isButtonDisabled={isButtonDisabled}
+              setIsButtonDisabled={setIsButtonDisabled}
           />
         </div>
 
         <div className = "frame">
             <img id="slotframe" src={raffleFrame} alt="Raffle Frame" />
+            <div className="raffleBody">
+              {numbers.map((number) => (
+                <Slot key={number} value={slotValues[number]} slotNumber={number} />
+              ))}
+          </div>       
         </div> 
-        <div className="raffleBody">
-            {/* <Edge id="top"/> */}
-            {numbers.map((number) => (
-              <Slot key={number} value={slotValues[number]} slotNumber={number} />
-            ))}
-            {/* <Edge id="bottom"/> */}
-        </div>       
         <div className="raffleSlotSign">
           <RaffleSlot
             raffleSlot={raffleSlot}
             setRaffleSlot={setRaffleSlot}
+            isDisabled={isButtonDisabled}
           />
         </div>
         <div className="LowerRaffle">

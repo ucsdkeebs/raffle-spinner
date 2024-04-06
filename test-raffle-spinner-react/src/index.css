@@ -45,26 +45,26 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /*position: absolute;
-  width: 23.5vw; */
-  z-index: -1
+  z-index: -1;
+  width: 32vw; 
+  height: auto;
 }
 
 /* Slots*/
 .slot {
-  width: 20vw;
-  height: calc(18vw / 5);
+  width: 25vw;
+  height: 4vw;
   border: 3px solid #471E20;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   background-color: #fffede;
 }
 
-#slot0 {
-  clip-path: polygon(0 70%, 0 100%, 100% 100%, 100% 70%);
-}
+/* #slot0 {
+  clip-path: polygon(0 100%, 0 100%, 100% 100%, 100% 100%);
+} */
 
 #slot9 {
   clip-path: polygon(0 0, 0 70%, 100% 70%, 100% 0);
@@ -81,17 +81,20 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /*position: static;*/
+  position: absolute;
   flex: 1;
+  bottom:0;
+  left: 20%;
   /*max-width: 45%;*/
   /*background-color: #f0f0f0;*/
 }
 
 #slotframe {
-  width: 32vw; 
+  width: 30vw; 
   height: auto; /* This ensures the image height scales with its width */
   object-fit: cover; /* This ensures the image maintains its aspect ratio */
-  /*position: static;*/
+  position: absolute;
+  bottom:0;
 }
 
 /*animation*/
@@ -102,11 +105,13 @@ body {
   align-items: left;
   position: absolute;
   flex: 1;
-  margin-top: 45vh;
+  /* margin-top: 45vh; */
+  bottom:0;
+  left:0;
 }
 
 #animation_frame {
-  max-width: 35%;
+  max-width: 45%;
   max-height: auto;
   /*position: relative;*/
 }
@@ -255,7 +260,10 @@ body {
   border-radius: 1vw;
   border-color: #fffede;
   text-align: center;
-  /*width: calc(100% - 22px); */
+}
+
+.select:disabled {
+  color: black;
 }
 
 .selectWrapper {

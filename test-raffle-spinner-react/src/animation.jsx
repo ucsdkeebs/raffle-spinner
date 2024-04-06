@@ -65,28 +65,28 @@
 
 import { useState } from 'react';
 
-function AnimationRenderer({ onAnimate, staticSrc, gifSrc, animationDuration }) {
+function AnimationRenderer({ onAnimate, staticSrc, gifSrc, animationDuration, isButtonDisabled, setIsButtonDisabled}) {
     const [imageSrc, setImageSrc] = useState(staticSrc);
-    const [isClickable, setIsClickable] = useState(true);
 
     const handleImageClick = () => {
-        if (!isClickable) return;
-        setIsClickable(false);
-        console.log('start: ' + isClickable);
+        if (isButtonDisabled) return;
+        setIsButtonDisabled(true);
+        console.log('start: ' + isButtonDisabled);
         setImageSrc(gifSrc); // Switch to the GIF
 
         setTimeout(() =>{
             onAnimate();
-        }, 5250)
+        }, 3200) 
 
         // onAnimate(); // Call any additional functions
 
         // Set a timeout to switch back to the static image after the GIF's duration
         setTimeout(() => {
+            setIsButtonDisabled(false);
             setImageSrc(staticSrc); // Switch back to the static image
-            console.log('end: ' + isClickable);
+            console.log('end: ' + isButtonDisabled);
         }, animationDuration);
-        setIsClickable(true);        
+                
     };
 
     return (
@@ -95,7 +95,7 @@ function AnimationRenderer({ onAnimate, staticSrc, gifSrc, animationDuration }) 
             src={imageSrc}
             alt="Animation"
             onClick={handleImageClick}
-            style={{ cursor: isClickable ? 'pointer':'not-allowed' }}
+            style={{ cursor: !isButtonDisabled ? 'pointer':'not-allowed' }}
         />
     );
 }
