@@ -50,7 +50,7 @@ function App() {
 
   // sets the state of raffle array
   useEffect(() => {
-    //console.log('Raffle state updated:', raffle);
+    console.log('Raffle state updated');
     let slots = raffle.slice(0,10);
     let parseSlots = []
     for (let i = 0; i < slots.length; i++)
@@ -74,7 +74,7 @@ function App() {
    * sets the raffle array to this list retrieved
    */
   const fetchData = async () => {
-    //console.log('fetch test!');
+    console.log('fetching!');
     const backendUrl = 'http://localhost:3001/api/get-google-sheet-data';
 
     try {
@@ -91,6 +91,7 @@ function App() {
   const fetchNumWinner = async () => {
     // creates the api query with the relevant information
     const backendUrl = `http://localhost:3001/api/get-num-winners`;
+    console.log('getting the column to insert the winner');
 
     try {
       const response = await fetch(backendUrl);
@@ -156,7 +157,7 @@ function App() {
   const updateData = async () => {
     // creates the api query with the relevant information
     const backendUrl = `http://localhost:3001/api/add-winner/${winner[3]}/${currentWinIndex}/${winner[0]}/${winner[1]}/${winner[2]}`;
-
+    console.log('updating the data by adding the winner')
     try {
       const response = await fetch(backendUrl,{
         method: "POST"
@@ -169,7 +170,7 @@ function App() {
   }
 
   const rollNames = async (raffleNames) => {
-    // console.log(raffleNames);
+    console.log('rolling');
     // picks a random index to start the spin
     var start = Math.floor(Math.random() * raffleNames.length); 
     // the number of times to spin the wheel, with built in spin so that it always looks like it spins 

@@ -14,7 +14,7 @@ const spreadsheetId = '18beUG4b0cNLogO8NFJPVvbB4kdFJPNSi7Wlc4nzBiPY';
 
 // fetches the google sheet data from a specific range
 app.get('/api/get-google-sheet-data', async (req, res) => {
-  //console.log("api test");
+  console.log("Getting sheets data");
   try {
     // creates auth credentials to use the service account
     const auth = new JWT(
@@ -29,7 +29,7 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
     // gets the last row of Attendees that has data
     //const lastRow = sheets.data.sheets[0].data[0].rowData.length;
     // Specify the range you want to read
-    const range = `Attendees!D2:J1800`; // Update with your desired range
+    const range = `Attendees!D2:J2000`; // Update with your desired range
 
     // Actually gets the spreadsheet values after passing the spreadsheetId and the range of values
     const response = await sheets.spreadsheets.values.get({
@@ -48,7 +48,7 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
 
 // finds which row to place the most recent winner on, for more private info to verify
 app.get('/api/get-num-winners', async (req, res) => {
-  //console.log("api test");
+  console.log("Finding winner index");
   try {
     // creates credentials for service account
     const auth = new JWT(
@@ -86,6 +86,7 @@ app.get('/api/get-num-winners', async (req, res) => {
 * email: winner's email
 */
 app.post('/api/add-winner/:originalIndex/:newRow/:name/:email/:orderid', async (req, res) => {
+  console.log('Adding the winner to the google sheet')
   try {
     // credential creation
     const auth = new JWT(
