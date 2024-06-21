@@ -26,4 +26,5 @@ const RaffleSlot = ({ raffleSlot, setRaffleSlot, isDisabled }) => {
   );
 };
 
+
 export default RaffleSlot;
