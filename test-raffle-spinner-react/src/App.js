@@ -24,7 +24,7 @@ function App() {
   const [winner, setWinner] = useState([]);
 
   // index of the Winner sheet to be added to the list of winners
-  const [currentWinIndex, setCurrentWinIndex] = useState(1);
+  const [currentWinIndex, setCurrentWinIndex] = useState(0);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -96,7 +96,7 @@ function App() {
     try {
       const response = await fetch(backendUrl);
       const data = await response.json();
-      let count = 1;
+      let count = currentWinIndex;
       for (let i = 0; i < data.length; i++) {
         if (data[i][0] === "TRUE") {
           count++;
@@ -109,7 +109,7 @@ function App() {
   }
 
   const addProtectedData = async () => {
-    //console.log('protecting data');
+    console.log('protecting data');
     const backendUrl = 'http://localhost:3001/api/add-protection';
 
     try {
@@ -124,7 +124,7 @@ function App() {
   }
 
   const updateProtectData = async (dataProtected) => {
-    //console.log(`unprotecting Data: ${dataProtected}`);
+    console.log(`unprotecting Data: ${dataProtected}`);
     const backendUrl = `http://localhost:3001/api/remove-protection/${dataProtected}`;
 
     try {
@@ -157,13 +157,14 @@ function App() {
   const updateData = async () => {
     // creates the api query with the relevant information
     const backendUrl = `http://localhost:3001/api/add-winner/${winner[3]}/${currentWinIndex}/${winner[0]}/${winner[1]}/${winner[2]}`;
-    console.log('updating the data by adding the winner')
+    console.log('updating the data by adding the winner ' + backendUrl)
     try {
       const response = await fetch(backendUrl,{
         method: "POST"
       });
       //const data = await response.json();
       setCurrentWinIndex(currentWinIndex + 1); 
+      console.log("i am not smart")
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -207,7 +208,8 @@ function App() {
     }
 
     // gets winning index and sets the winner to be the string at that index
-    let winIndex = (start + spins) % raffleNames.length + 1;
+    let winIndex = (start + spins) % raffleNames.length;
+    console.log("win Index: " + winIndex);
     setWinner(raffleNames[winIndex]);
   }
 
@@ -218,8 +220,8 @@ function App() {
   }
 
   const handleAnimationClick = async () => {
-    //const protectedId = await addProtectedData();
     setIsButtonDisabled(true);
+    //const protectedId = await addProtectedData();
     const updatedRaffle = await fetchData();
     console.log(updatedRaffle);
     console.log('Updated Raffle:')

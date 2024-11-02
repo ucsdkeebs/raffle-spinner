@@ -10,7 +10,7 @@ const PORT = 3001;
 app.use(cors());
 
 // the id can be found by looking after /d/ in the sheet URL
-const spreadsheetId = '1Lj3I74Hey4GRZXofn7w_k18RvYyuytvLBJKf7EHSVcQ';
+const spreadsheetId = '1TfYC0cuI20Pzv3uA8ojWMqJfpDog6kj0K2zHPFjbQzg'; //NEED TO REPLACE
 
 // fetches the google sheet data from a specific range
 app.get('/api/get-google-sheet-data', async (req, res) => {
@@ -60,7 +60,7 @@ app.get('/api/get-num-winners', async (req, res) => {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    const range = `Attendees!I2:I1800`; // Update with desired range
+    const range = `Attendees!I2:I2000`; // Update with desired range
 
     // queries from the spreadsheet
     const response = await sheets.spreadsheets.values.get({
@@ -150,11 +150,11 @@ app.post('/api/add-protection', async (req, res) => {
             addProtectedRange: {
               protectedRange: {
                 range: {
-                  sheetId: 1581120529, // Sheet ID, 0 for the first sheet
+                  sheetId: 0, // Sheet ID, 0 for the first sheet
                   startRowIndex: 1,
-                  endRowIndex: 1800, // Adjust as needed
+                  endRowIndex: 2000,
                   startColumnIndex: 0,
-                  endColumnIndex: 7, // Adjust as needed
+                  endColumnIndex: 7, 
                 },
                 warningOnly: true,
                 requestingUserCanEdit: false,
