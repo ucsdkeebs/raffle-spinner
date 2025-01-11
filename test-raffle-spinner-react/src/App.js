@@ -175,7 +175,7 @@ function App() {
     // picks a random index to start the spin
     var start = Math.floor(Math.random() * raffleNames.length); 
     // the number of times to spin the wheel, with built in spin so that it always looks like it spins 
-    var spins = Math.floor(Math.random() * 20) + 73; 
+    var spins = Math.floor(Math.random() * 20) + 53; 
     for (let i = start; i <= start + spins; i++) {
       let delay = 0.05;
       // checks if there is less than 40 spins left, then starts to slow down the spin
@@ -208,7 +208,7 @@ function App() {
     }
 
     // gets winning index and sets the winner to be the string at that index
-    let winIndex = (start + spins) % raffleNames.length;
+    let winIndex = (start + spins + 1) % raffleNames.length;
     console.log("win Index: " + winIndex);
     setWinner(raffleNames[winIndex]);
   }
