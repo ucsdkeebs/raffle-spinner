@@ -10,7 +10,7 @@ const PORT = 3001;
 app.use(cors());
 
 // the id can be found by looking after /d/ in the sheet URL
-const spreadsheetId = '136bFV6ilPR9Mui9VwQutKt3Pbrua75LqSdl66oDI8Uw'; //NEED TO REPLACE
+const spreadsheetId = '1k9gLofToVA9ZBVjxbb4z0WbdLhx6-Z0uQORfiugDuX8'; //NEED TO REPLACE
 
 // fetches the google sheet data from a specific range
 app.get('/api/get-google-sheet-data', async (req, res) => {

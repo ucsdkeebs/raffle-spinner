@@ -178,9 +178,9 @@ function App() {
     var spins = Math.floor(Math.random() * 20) + 53; 
     for (let i = start; i <= start + spins; i++) {
       let delay = 0.05;
-      // checks if there is less than 40 spins left, then starts to slow down the spin
-      if (i >= start + spins - 40) {
-        delay = (0.05 + (0.02 * (i - (start + spins - 40)) / 5)); //slows down the spin by 0.004 seconds.
+      // checks if there is less than 20 spins left, then starts to slow down the spin
+      if (i >= start + spins - 20) {
+        delay = (0.05 + (0.02 * (i - (start + spins - 20)) / 5)); //slows down the spin by 0.004 seconds.
       }
             
       await new Promise ( resolve => { 
