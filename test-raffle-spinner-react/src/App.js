@@ -75,12 +75,13 @@ function App() {
    */
   const fetchData = async () => {
     console.log('fetching!');
-    const backendUrl = 'http://localhost:3001/api/get-google-sheet-data';
+    const backendUrl = 'http://localhost:3001/api/get-data';
 
     try {
       const response = await fetch(backendUrl);
       const data = await response.json();
       const info = parseData(data);
+      console.log(info);
       setRaffle(info); 
       return info;   
     } catch (error) {
@@ -139,16 +140,12 @@ function App() {
 
   // goes through the data from the spreadsheet to properly run the raffle
   function parseData(data) {
-    // only want to keep E(1) and F(2) which is name and email
-    // also want to add extra tickets G(3)
     const output = [];
     for (let i = 0; i < data.length; i++) {
-      // checks if the entry is both in the venue and has yet to win
-      if ((data[i][4] === "TRUE") && (data[i][5] === "FALSE") && ((raffleSlot === "all") || (data[i][6] === raffleSlot))) {
-        // accounts for any extra tickets that the entry has
-        for (let j = 0; j < parseInt(data[i][3]) + 1; j++) {
-          output.push([data[i][1], data[i][2], data[i][0], parseInt(i) + 2]);
-        }
+      let currRaffleSlot = data[i]["custom_questions"][1]['answer'].split(" ")[2] ;
+      console.log(currRaffleSlot);
+      if ((raffleSlot === "all") || (raffleSlot === currRaffleSlot)) {
+        output.push([data[i]["full_name"], data[i]["email"], data[i]["id"], parseInt(i) + 2]);
       }
     }
     return shuffle(output);

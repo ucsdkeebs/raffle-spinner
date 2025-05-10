@@ -2,7 +2,9 @@ const serviceAccount = require('../.env/secrets.json');
 const express = require('express');
 const { google } = require('googleapis');
 const cors = require('cors');
+const axios = require('axios');
 const { JWT } = require('google-auth-library')
+require('dotenv').config({ path: '../.env/.env' });
 
 const app = express();
 const PORT = 3001;
@@ -12,6 +14,74 @@ app.use(cors());
 // the id can be found by looking after /d/ in the sheet URL
 const spreadsheetId = '1Du0mN1HnfIOUfZjcFO75Uenh6B59z_H8w5CogsU0nDs'; //NEED TO REPLACE
 
+const API_KEY = process.env.TICKET_TAILOR_API_KEY;
+const encodedKey = Buffer.from(`${API_KEY}:`).toString('base64'); 
+
+async function fetchAllIssuedTickets(){
+  const allTickets = [];
+  let startUrl = 'https://api.tickettailor.com/v1';
+  let nextUrl = startUrl + '/issued_tickets';
+  // while loop to deal with pagination
+  while (nextUrl){
+      //config for axios api call
+      let ticket_config = {
+          method: 'get',
+          maxBodyLength: Infinity,
+          url: nextUrl,
+          headers: { 
+            'Accept': 'application/json', 
+            'Authorization': `Basic ${encodedKey}`
+          }
+      };
+
+
+      const response = await axios.request(ticket_config)
+
+      const body = response.data;
+
+      //adds all of the ticket info into one long list
+      allTickets.push(...body.data);
+      nextUrl = body.links?.next || null; 
+      if (nextUrl) {
+          nextUrl = startUrl + nextUrl;
+      }
+      console.log(nextUrl);
+  }
+  return allTickets
+}
+
+async function fetchAllCheckedIn(){
+  const allCheckedIn = []
+  let startUrl = 'https://api.tickettailor.com/v1'
+  let nextUrl = startUrl + '/check_ins'
+  
+  while (nextUrl) {
+      let check_in_config = {
+          method: 'get',
+          maxBodyLength: Infinity,
+          url: nextUrl,
+          headers: { 
+            'Accept': 'application/json', 
+            'Authorization': `Basic ${encodedKey}`
+          }
+      };
+
+      const response = await axios.request(check_in_config);
+
+      const body = response.data
+
+      allCheckedIn.push(...body.data);
+      nextUrl = body.links?.next || null
+      if (nextUrl) {
+          nextUrl = startUrl + nextUrl;
+      }
+      console.log(nextUrl);
+  }
+
+  return allCheckedIn;
+}
+
+//not necesssary now that I have the check in sheet
 // fetches the google sheet data from a specific range
 app.get('/api/get-google-sheet-data', async (req, res) => {
   console.log("Getting sheets data");
@@ -46,6 +116,46 @@ app.get('/api/get-google-sheet-data', async (req, res) => {
   }
 });
 
+app.get('/api/get-data', async (req, res) => {
+  try {
+    const auth = new JWT(
+      serviceAccount.client_email,
+      null,
+      serviceAccount.private_key,
+      ['https://www.googleapis.com/auth/spreadsheets'],
+    );
+    const sheets = google.sheets({ version: 'v4', auth });
+
+    const range = `Winners!A2:C2000`; 
+
+    const response = await sheets.spreadsheets.values.get({
+        spreadsheetId,
+        range,
+    });
+
+    const parseData = response.data.values;
+    //////////////////////////////////////////////////////////
+    allTickets = await fetchAllIssuedTickets();
+
+    allCheckedIn = await fetchAllCheckedIn();
+
+    const removeSet = new Set(allCheckedIn.map(entry => entry.issued_ticket_id));
+    for (let i = 0; i < parseData.length; i++) {
+      removeSet.add(parseData[i][2]);
+    } 
+
+    const checkedInTickets = allTickets.filter(ticket => removeSet.has(ticket.id));
+
+    console.log(checkedInTickets.length);
+
+    res.json(checkedInTickets);
+  } catch (error) {
+    console.error('Error reading Google Sheet data: ', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+//still necessary
 // finds which row to place the most recent winner on, for more private info to verify
 app.get('/api/get-num-winners', async (req, res) => {
   console.log("Finding winner index");
