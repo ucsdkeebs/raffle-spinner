@@ -12,7 +12,7 @@ const PORT = 3001;
 app.use(cors());
 
 // the id can be found by looking after /d/ in the sheet URL
-const spreadsheetId = '1Du0mN1HnfIOUfZjcFO75Uenh6B59z_H8w5CogsU0nDs'; //NEED TO REPLACE
+const spreadsheetId = '1o3HuYmWyFieO7K_lN5wn1NYORWhb9KLzhYbPuUQUJjY'; //NEED TO REPLACE
 
 const API_KEY = process.env.TICKET_TAILOR_API_KEY;
 const encodedKey = Buffer.from(`${API_KEY}:`).toString('base64'); 
