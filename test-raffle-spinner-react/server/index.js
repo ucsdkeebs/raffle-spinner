@@ -151,13 +151,7 @@ app.get('/api/get-data', async (req, res) => {
     console.log(checkedInTickets.length);
     checkedInTickets = checkedInTickets.filter(ticket => !removeSet.has(ticket.id))
     console.log(checkedInTickets.length);
-
-    for (let ticket in checkedInTickets){
-      if (ticket['name'] === 'Maria Fernanda Suarez Naves') {
-        console.log(ticket);
-      }
-    }
-
+    
     res.json(checkedInTickets);
   } catch (error) {
     console.error('Error reading Google Sheet data: ', error.message);
