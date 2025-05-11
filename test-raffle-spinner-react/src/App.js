@@ -142,8 +142,8 @@ function App() {
   function parseData(data) {
     const output = [];
     for (let i = 0; i < data.length; i++) {
-      let currRaffleSlot = data[i]["custom_questions"][1]['answer'].split(" ")[2] ;
-      console.log(currRaffleSlot);
+      let currRaffleSlot = data[i]["custom_questions"][1]['answer'].split(" ")[-3] ;
+      console.log(currRaffleSlot); 
       if ((raffleSlot === "all") || (raffleSlot === currRaffleSlot)) {
         output.push([data[i]["full_name"], data[i]["email"], data[i]["id"], parseInt(i) + 2]);
       }

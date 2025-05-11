@@ -139,14 +139,24 @@ app.get('/api/get-data', async (req, res) => {
 
     allCheckedIn = await fetchAllCheckedIn();
 
-    const removeSet = new Set(allCheckedIn.map(entry => entry.issued_ticket_id));
+    const checkedIn = new Set(allCheckedIn.map(entry => entry.issued_ticket_id));
+
+    const removeSet = new Set();
+    
     for (let i = 0; i < parseData.length; i++) {
       removeSet.add(parseData[i][2]);
     } 
 
-    const checkedInTickets = allTickets.filter(ticket => removeSet.has(ticket.id));
-
+    let checkedInTickets = allTickets.filter(ticket => checkedIn.has(ticket.id));
     console.log(checkedInTickets.length);
+    checkedInTickets = checkedInTickets.filter(ticket => !removeSet.has(ticket.id))
+    console.log(checkedInTickets.length);
+
+    for (let ticket in checkedInTickets){
+      if (ticket['name'] === 'Maria Fernanda Suarez Naves') {
+        console.log(ticket);
+      }
+    }
 
     res.json(checkedInTickets);
   } catch (error) {
