@@ -13,7 +13,7 @@ function AnimationRenderer({ onAnimate, staticSrc, gifSrc, animationDuration, is
 
         setTimeout(() =>{
             onAnimate();
-        }, 3200) 
+        }, 800) 
 
         // Set a timeout to switch back to the static image after the GIF's duration
         setTimeout(() => {

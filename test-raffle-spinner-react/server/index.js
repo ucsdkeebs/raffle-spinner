@@ -209,14 +209,14 @@ app.post('/api/add-winner/:originalIndex/:newRow/:name/:email/:orderid', async (
     const sheets = google.sheets({ version: 'v4', auth });
 
     // Update won item to TRUE inside of Attendees sheet
-    const updateAttendees = await sheets.spreadsheets.values.update({
-      spreadsheetId,
-      range: `Attendees!I${req.params.originalIndex}`,
-      valueInputOption: 'USER_ENTERED', //here so that the value looks like TRUE instead of `TRUE since boolean values are weird with sheets
-      resource: {
-        values: [['TRUE']],
-      },
-    });
+    // const updateAttendees = await sheets.spreadsheets.values.update({
+    //   spreadsheetId,
+    //   range: `Attendees!I${req.params.originalIndex}`,
+    //   valueInputOption: 'USER_ENTERED', //here so that the value looks like TRUE instead of `TRUE since boolean values are weird with sheets
+    //   resource: {
+    //     values: [['TRUE']],
+    //   },
+    // });
 
     // Log the update response (optional)
     //console.log('Update Response');
