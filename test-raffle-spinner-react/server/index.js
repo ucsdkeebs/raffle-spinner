@@ -12,7 +12,7 @@ const PORT = 3001;
 app.use(cors());
 
 // the id can be found by looking after /d/ in the sheet URL
-const spreadsheetId = '1o3HuYmWyFieO7K_lN5wn1NYORWhb9KLzhYbPuUQUJjY'; //NEED TO REPLACE
+const spreadsheetId = '1PCyozijZVZbY1-eNLipvfRdGdt_mIqWxfZy6B8ts-r4'; //NEED TO REPLACE
 
 const API_KEY = process.env.TICKET_TAILOR_API_KEY;
 const encodedKey = Buffer.from(`${API_KEY}:`).toString('base64'); 
@@ -20,8 +20,9 @@ const encodedKey = Buffer.from(`${API_KEY}:`).toString('base64');
 async function fetchAllIssuedTickets(){
   const allTickets = [];
   let startUrl = 'https://api.tickettailor.com/v1';
-  let nextUrl = startUrl + '/issued_tickets';
+  let nextUrl = startUrl + `/issued_tickets?event_id=${process.env.EVENT_ID}&limit=100`;
   // while loop to deal with pagination
+  console.log(nextUrl);
   while (nextUrl){
       //config for axios api call
       let ticket_config = {
@@ -38,6 +39,7 @@ async function fetchAllIssuedTickets(){
       const response = await axios.request(ticket_config)
 
       const body = response.data;
+      //console.log(body);
 
       //adds all of the ticket info into one long list
       allTickets.push(...body.data);
@@ -47,6 +49,7 @@ async function fetchAllIssuedTickets(){
       }
       console.log(nextUrl);
   }
+  //console.log(allTickets);
   return allTickets
 }
 
@@ -146,6 +149,8 @@ app.get('/api/get-data', async (req, res) => {
     for (let i = 0; i < parseData.length; i++) {
       removeSet.add(parseData[i][2]);
     } 
+
+    console.log(removeSet);
 
     let checkedInTickets = allTickets.filter(ticket => checkedIn.has(ticket.id));
     console.log(checkedInTickets.length);

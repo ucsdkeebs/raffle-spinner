@@ -24,7 +24,7 @@ function App() {
   const [winner, setWinner] = useState([]);
 
   // index of the Winner sheet to be added to the list of winners
-  const [currentWinIndex, setCurrentWinIndex] = useState(0);
+  const [currentWinIndex, setCurrentWinIndex] = useState(1);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -80,6 +80,7 @@ function App() {
     try {
       const response = await fetch(backendUrl);
       const data = await response.json();
+      console.log('backendurl checking this is working');
       const info = parseData(data);
       console.log(info);
       setRaffle(info); 
@@ -142,8 +143,9 @@ function App() {
   function parseData(data) {
     const output = [];
     for (let i = 0; i < data.length; i++) {
-      let currRaffleSlot = data[i]["custom_questions"][1]['answer'].split(" ").at(-3);
-      console.log(currRaffleSlot); 
+      //let currRaffleSlot = data[i]["custom_questions"][1]['answer'].split(" ").at(-3);
+      let currRaffleSlot = "I"; //hardcoded for OAUK since only one raffle slot
+      //console.log(currRaffleSlot); 
       if ((raffleSlot === "all") || (raffleSlot === currRaffleSlot)) {
         output.push([data[i]["full_name"], data[i]["email"], data[i]["id"], parseInt(i) + 2]);
       }
